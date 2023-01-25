@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="By: Andrew McKenzie; First Published: 2012-10-12; Last Updated: 2023-01-03; Status: Finished" />
+
+
+<title>Using spaced repetition for learning facts, forming habits, and re-reading quotes</title>
+
+<script src="site_libs/header-attrs-2.19/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/yeti.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+
+
+
+<style type="text/css">
+/* for pandoc --citeproc since 2.11 */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"></a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://andrewtmckenzie.com">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+</li>
+<li>
+  <a href="https://scholar.google.com/citations?user=H1Yr8oMAAAAJ&amp;hl=en">
+    <span class="fa fa-graduation-cap"></span>
+     
+    Scholar
+  </a>
+</li>
+<li>
+  <a href="https://neurobiology.substack.com/">
+    <span class="fa fa-book"></span>
+     
+    Blog
+  </a>
+</li>
+<li>
+  <a href="https://github.com/andymckenzie">
+    <span class="fa fa-github"></span>
+     
+    Github
+  </a>
+</li>
+<li>
+  <a href="https://www.linkedin.com/in/andymckenzie/">
+    <span class="fa fa-linkedin"></span>
+     
+    LinkedIn
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Using spaced repetition for learning facts,
+forming habits, and re-reading quotes</h1>
+<h4 class="author">By: Andrew McKenzie; First Published: 2012-10-12;
+Last Updated: 2023-01-03; Status: Finished</h4>
+
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#summary" id="toc-summary">Summary</a></li>
+<li><a href="#introduction" id="toc-introduction">Introduction</a></li>
+<li><a href="#spaced-repetition-for-learning-facts"
+id="toc-spaced-repetition-for-learning-facts">Spaced repetition for
+learning facts</a>
+<ul>
+<li><a href="#spaced-repetition-for-medicine"
+id="toc-spaced-repetition-for-medicine">Spaced repetition for
+medicine</a></li>
+<li><a href="#spaced-repetition-for-science-research"
+id="toc-spaced-repetition-for-science-research">Spaced repetition for
+science research</a></li>
+<li><a href="#spaced-repetition-for-personal-trivia"
+id="toc-spaced-repetition-for-personal-trivia">Spaced repetition for
+personal trivia</a></li>
+</ul></li>
+<li><a href="#spaced-repetition-for-forming-habits"
+id="toc-spaced-repetition-for-forming-habits">Spaced repetition for
+forming habits</a></li>
+<li><a
+href="#spaced-repetition-for-re-reading-quotes-or-re-viewing-images"
+id="toc-spaced-repetition-for-re-reading-quotes-or-re-viewing-images">Spaced
+repetition for re-reading quotes or re-viewing images</a></li>
+<li><a href="#my-overall-spaced-repetition-experience"
+id="toc-my-overall-spaced-repetition-experience">My overall spaced
+repetition experience</a></li>
+<li><a href="#decks" id="toc-decks">Decks</a>
+<ul>
+<li><a href="#math" id="toc-math">Math</a></li>
+<li><a href="#programming" id="toc-programming">Programming</a></li>
+<li><a href="#psychology" id="toc-psychology">Psychology</a></li>
+<li><a href="#statistics" id="toc-statistics">Statistics</a></li>
+<li><a href="#quotes" id="toc-quotes">Quotes</a></li>
+<li><a href="#download-statistics" id="toc-download-statistics">Download
+statistics</a></li>
+</ul></li>
+<li><a href="#acknowledgments"
+id="toc-acknowledgments">Acknowledgments</a></li>
+<li><a href="#references" id="toc-references">References</a></li>
+</ul>
+</div>
+
+<head>
+<meta name="citation_title" content="Using spaced repetition for learning facts, forming habits, and re-reading quotes">
+<meta name="og:title" content="Using spaced repetition for learning facts, forming habits, and re-reading quotes">
+<meta name="citation_author" content="Andrew T McKenzie">
+<meta name="og:site" content="andrewtmckenzie.com">
+<meta name="og:type" content="article">
+<meta name="citation_publication_date" content="2012-10-12">
+<meta name="citation_fulltext_html_url" content="https://andrewtmckenzie.com/spaced_repetition">
+<meta name="og:url" content="https://andrewtmckenzie.com/spaced_repetition">
+<meta name="citation_fulltext_world_readable" content="">
+</head>
+<style type="text/css">
+  body{
+  font-size: 14.5pt;
+  overflow-y:scroll;
+}
+h1.title {
+  font-size: 25pt;
+}
+  h4{
+  font-size: 17pt;
+}
+  td{
+    font-size: 14.5pt;
+    padding:0px;
+    cellpadding="0";
+    cellspacing="0"
+  }
+  th {
+    font-size: 14.5pt;
+    font-weight: bold;
+  }
+    .navbar {
+  font-size: 13pt;
+  }
+</style>
+<div id="summary" class="section level2">
+<h2>Summary</h2>
+<p>Spaced repetition is a powerful learning method, memory aid, habit
+reinforcer, and randomness generator that has added a lot of value to my
+life. I give a brief introduction to spaced repetition learning, why
+I’ve found it useful, and a few of the lessons I’ve picked up along the
+way. Then, I link to some of my current shared decks, broken down by
+topic, made using the free, open-source software <a
+href="http://ankisrs.net/">Anki</a>.</p>
+</div>
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
+<p>Most of the time, it is acceptable to learn something in the short
+run and accept that you will probably forget it later. Maybe you don’t
+care about the material long-term and just want to pass a course. Or
+maybe you need to understand a topic well enough to execute a two-month
+long project, and after that you have good reason to expect the
+knowledge will lose its value.</p>
+<p>But sometimes forgetting information is needlessly inefficient. For
+example, if you learn some aspect of statistics in a course and want to
+be able to apply it in your research career over the next 10 to 20
+years.</p>
+<p>The US, where I went to school, has a semester-based system that
+incentivizes you to learn topics briefly — at worst for one exam, at
+best for one or two semesters — and implicitly expects you to remember
+them from then on. This is an excellent way to temporarily store
+information for a few days or months, but is not an efficient way to
+stabilize long-term memories.</p>
+<p>Let’s step back and look at some of the science of memory. When it
+comes to memory, there are two effects we want to take advantage of.</p>
+<p>The first is the <a
+href="http://en.wikipedia.org/wiki/Spacing_effect">spacing effect</a>,
+which is the finding that humans learn things better when they recall
+them in spaced intervals over a series of hours, days, weeks, or months,
+rather than the same number of times massed all at once. Taken to its
+logical extreme, the effect suggests that there is an optimal point at
+which it is best to recall something, which is when you are about to
+forget it.</p>
+<p>These <a
+href="https://en.wikipedia.org/wiki/Forgetting_curve">forgetting
+curves</a> were mapped by Hermann Ebbinghaus in a manuscript published
+in 1885. If you want to learn something long-term and are able to use
+spaced repetition to do so, harnessing the spacing effect is close to a
+free lunch.</p>
+<p>The second effect is the <a
+href="http://en.wikipedia.org/wiki/Testing_effect">testing effect</a>,
+which is the finding that humans learn better when they actively recall
+or use a fact/definition/idea instead of passively reading or hearing
+it. This is less of a free lunch, though, because actively recalling
+something does seem to take more mental energy than just reading it or
+hearing it. But it’s still quite powerful if you can muster the
+willpower.</p>
+<p>Computer-based spaced repetition (SR) flashcard software allows you
+to harness both of these effects in a convenient way. The algorithms are
+automatically set to query and refresh your memory of a topic when they
+estimate that you are likely to forget it. Based on Ebbinghaus’s
+forgetting curves, study interval periods expand with repetitions. So,
+for example, after first learning a flashcard, you will be re-tested on
+it in (approximately) 1 day, then 4 days, then 12 days, then 1 month,
+then 3 months, then 9 months, etc.</p>
+<p>By taking advantage of the spacing effects and testing effects,
+spaced repetition will allow you to learn in ways that are more likely
+to stick.</p>
+</div>
+<div id="spaced-repetition-for-learning-facts" class="section level2">
+<h2>Spaced repetition for learning facts</h2>
+<p>Most people use spaced repetition flashcards for learning facts —
+definitions, dates, names, relationships, nuances.</p>
+<p>In general, the simpler and more precise the fact, the easier it is
+learn the memory. This is in part because the cue-recall process is
+faster, and in part because it is easier to evaluate whether you got a
+flashcard right if the fact is simpler/smaller/shorter/more precise.
+Simpler facts also can make it more fun to review your flashcard sets,
+since they tend to be less mentally taxing. But longer facts can
+sometimes be more helpful when you want to apply your knowledge, as you
+can bring to mind all the relevant info in one “chunk.” It’s best to
+figure out what works for you in different situations.</p>
+<p>As of the 2010s, when I was most into the spaced repetition
+community, the main two applications for spaced repetition were language
+learning and medical school.</p>
+<p>Language learning is kind of obvious — translation between languages
+lends itself very well to short, one-word facts, and there are clearly
+definable goals.</p>
+<div id="spaced-repetition-for-medicine" class="section level3">
+<h3>Spaced repetition for medicine</h3>
+<p>Med school has just the right confluence of factors to lend itself to
+spaced repetition learning: huge career incentives to do well on
+memorization-based exams, positive social feedback because for better or
+worse medicine has a culture of memorization, plausible future benefits
+to patients in knowing more facts, and an endless volcano of
+relationships between diseases, symptoms, treatments, and side effects
+that can absorb as much time as you want to pour into it. If you’re
+interested to see how this works, one of the major communities for it
+has been <a
+href="https://www.reddit.com/r/medicalschoolanki">r/medicalschoolanki</a>.</p>
+<p>An aside on using Anki for med school since I poured a lot of time
+into this myself: One of the most difficult but necessary things to
+learn is lists. Lists are everywhere in medicine, coming up as symptoms,
+treatments, side effects, etc.</p>
+<p>What has worked for me to memorize lists is to make separate
+flashcards: one as an overall mnemonic for the list, and then separate
+flashcards for up to three of the members of the list at a time. A good
+mnemonic is short — this will make it harder to learn, but when you
+actually need to recall the mnemonic when you are talking to a patient,
+on a multiple choice test, or on rounds, you will be time-limited and
+need to the recall the mnemonic quickly. This is mostly for making your
+own cards, which I did a lot of, but now I would recommend using one of
+the high quality, pre-made decks.</p>
+</div>
+<div id="spaced-repetition-for-science-research" class="section level3">
+<h3>Spaced repetition for science research</h3>
+<p>When I was doing full-time science research during my PhD, I was
+mostly using spaced repetition flashcards for learning two types of
+things:</p>
+<p>1: Learning programming languages, both the syntax and the
+vocabulary.</p>
+<p>Syntax was most helpful when I was remembering the names of functions
+that I use a moderate amount — enough to justify time spent on the
+flashcard, but not enough that I would remember it even without a
+flashcard.</p>
+<p>Vocabulary related to programming concepts has probably been more
+helpful, because it helps me figure out the Google search terms I should
+use in order to solve a problem, which is the most important thing for
+the type of programming I do. Examples here include terms related to
+recursion, matrices, parallelization, and functional programming.</p>
+<p>2: Learning about my research topics, e.g., Alzheimer’s and genomics.
+The jury is still out on whether this is a good use of time, but in
+general, I would say to not sleep on it if you’re a researcher. For
+example, at the cutting edge of any research field, understanding the
+history of why opinions have formed, and where the evidence is weak vs
+strong, is essential. Instead of exclusively reading new material,
+there’s often more value to be gained from memorizing and systematically
+reflecting upon key points from material you’ve already read, especially
+if you have a highly imperfect memory like me.</p>
+</div>
+<div id="spaced-repetition-for-personal-trivia" class="section level3">
+<h3>Spaced repetition for personal trivia</h3>
+<p>I’ve also used spaced repetition for learning facts related to my
+personal life — people’s names, where they went to school, what is
+important to them, anniversaries, etc. The possibilities are endless. If
+you’re bad at remembering names, adopting a habit to make a flashcard
+with someone’s name after you meet them and then to review it is an easy
+way to get good at it.</p>
+</div>
+</div>
+<div id="spaced-repetition-for-forming-habits" class="section level2">
+<h2>Spaced repetition for forming habits</h2>
+<p>Spaced repetition learning acknowledges that memory recall success
+decays over time and that recalling a fact can refresh its memory.</p>
+<p>My hypothesis here is that you can do spaced repetition habit
+formation by acknowledging that unpracticed habit automaticity decays
+over time and that reminding yourself of a habit can help you to build
+automaticity around it.</p>
+<p>First, what is habit automaticity? This is the idea that deeply
+ingrained habits occur effortlessly, without the need for conscious
+decision-making. Automatic is the state that people want the habits they
+consider healthy to be in, and their unhealthy habits out of. It’s like
+flossing once a day, not necessarily because you want to, but just
+because that’s what you do.</p>
+<p>Habit automaticity takes a long time to build. One study found that,
+depending on the complexity of the habit, it took anywhere from 18 to
+254 days to get a habit to 95% automaticity, with a median of 66 days <a
+href="https://onlinelibrary.wiley.com/doi/abs/10.1002/ejsp.674"><span
+class="citation">(Lally et al., 2010)</span></a>. And this was for daily
+habits like ‘drinking a bottle of water with lunch’; if you’re trying to
+build a moderately complex habit that you do less frequently, it might
+take even longer.</p>
+<p>The idea behind spaced repetition habit formation is that you create
+a flashcard with the same expanding time schedule as a normal flashcard.
+However, when you see this type flashcard, your job isn’t to remember a
+fact, but to think to yourself about how automatic the habit on the
+flashcard is.</p>
+<p>If the habit isn’t automatic at all, then you click “Wrong” and you
+will see the habit again tomorrow.</p>
+<p>If the habit is super automatic, then you can click “Good” and you
+won’t see the habit flashcard again for quite a few days.</p>
+<p>The habit doesn’t even need to be an action that you perform
+externally — it can be a purely mental habit that you’re trying to form
+or break.</p>
+<p>From my perspective, there are three major benefits to this spaced
+repetition habit formation strategy:</p>
+<p>You will be reminded of the habits that you are trying to form, in
+case you have simply forgotten about them. This is especially good for
+habits that you may have formed months or years ago but forgotten about
+over time. Maybe you won’t want to keep doing them — that’s a good
+realization and you can just delete or suspend the flashcard.</p>
+<p>By having a structured time to think about whether you are performing
+the habit or not, you have an opportunity to give yourself some
+reinforcement or credit for a job well done. You can tell which habits
+you are struggling with and may need to devote more energy to by looking
+at the statistics of the habit cards over time.</p>
+<p>Habit flashcards will likely be deeply personal. The ones that work
+for me probably wouldn’t be as helpful for you, and vice versa. That
+said, in the spirit of being concrete, here are a few of the habit
+flashcards that I have the most reviews for over the past few years:</p>
+<ul>
+<li>“I have yet to meet a successful scientist who lacks the ability to
+exaggerate the importance of what he or she is doing, and I believe that
+someone who lacks a delusional sense of significance will wilt in the
+face of repeated experience of multiple small failures and rare
+successes, the fate of most researchers.” – Daniel Kahneman, Thinking,
+Fast and Slow <a
+href="https://en.wikipedia.org/wiki/Thinking,_Fast_and_Slow"><span
+class="citation">(n.d.)</span></a> – Created 2014-08-24, 502 reviews as
+of 2023-01-03</li>
+<li>Write at least a little bit of an academic paper, book, or grant
+every Monday-Friday. People who were assigned to write every weekday
+wrote 9x as much as those who wrote in marathon sessions. - Created
+2015-03-11, 481 reviews as of 2023-01-03</li>
+<li>What we fear doing most is usually what we most need to do. - Tim
+Ferriss, The 4-Hour Workweek <a
+href="https://en.wikipedia.org/wiki/The_4-Hour_Workweek"><span
+class="citation">(Ferriss, 2009)</span></a> - Created 2012-03-28, 361
+reviews as of 2023-01-03</li>
+<li>The key to positivity according to cognitive reappraisal is to
+accept reality as it is, but reframe whatever happens to you or might
+happen to you as having an upside. - Created 2014-11-04, 358 reviews as
+of 2023-01-03</li>
+<li>“Envy is the worst passion, and preys on the spirits, which again
+prey on the body. And it is so much the worse, because it is always at
+work, and (as they say) keeps no holidays.” - Francis Bacon, A History
+of Life and Death <a
+href="https://quod.lib.umich.edu/e/eebo/A01446.0001.001?view=toc"><span
+class="citation">(Bacon, 2005)</span></a> - Created 2019-06-25, 305
+reviews as of 2023-01-03<br />
+</li>
+<li>If you want to learn a topic, you should program yourself to enjoy
+learning about it. – Created 2013-6-22, 186 reviews as of
+2023-01-03</li>
+<li>“If you ever find yourself buffering on output, rather than making
+hesitation noises, just pause. People will read that as considered
+deliberation and intelligence. It’s outrageously more effective than the
+equivalent amount of emm, aww, like, etc. Practice saying nothing.
+Nothing is often the best possible thing to say.” <a
+href="https://news.ycombinator.com/item?id=6199544">Patrick
+McKenzie</a>, – Created 3/6/2017, 121 reviews as of 11/18/18</li>
+</ul>
+<p>I have about 200 active habit flashcards at a time, and do about
+10-20 reviews a day. These are my favorite reviews to do because they
+don’t require as much cognitive load as recall, and I will do them even
+when I don’t have the energy to do memory recall flashcards.</p>
+<p>Remember that there is no “right answer” to these. Rather, they are
+an opportunity for you to introspect about how well you are achieving
+the habit and whether you want to devote more resources to it, refine
+the habit, or abandon it.</p>
+<p>If you try out or are interested in trying out habit flashcards, I
+would love to hear whether you find them helpful and/or ways that the
+system could be improved.</p>
+</div>
+<div id="spaced-repetition-for-re-reading-quotes-or-re-viewing-images"
+class="section level2">
+<h2>Spaced repetition for re-reading quotes or re-viewing images</h2>
+<p>In addition to memory recall flashcards and habit flashcards, I also
+have a separate deck where I copy in quotes or images that I enjoy —
+famous ones, quotes from articles I like, quotes from my friends and
+family, beautiful photos of nature, famous artwork, particularly funny
+memes, random thoughts I have, etc. Because I do not turn the
+information into a question about a particular fact, I am giving up the
+testing effect, and I don’t tend to retain the knowledge very well. But
+they are low-effort to make, it is nice to review them when I have low
+energy, and I don’t care as much about free recalling the information as
+I do about periodically reminding myself of them. I view this as a way
+to add randomness to my life by having a conversation with myself over a
+longer period of time.</p>
+</div>
+<div id="my-overall-spaced-repetition-experience"
+class="section level2">
+<h2>My overall spaced repetition experience</h2>
+<p>Although I’ve been doing spaced repetition via Anki since February
+2011, I wanted to start doing SR flashcards for several years before I
+actually started — approximately speaking, since May 2008, when I read
+<a href="http://www.wired.com/2008/04/ff-wozniak/?currentPage=all">this
+Wired article about Piotr Wozniak</a>. Wozniak truly devoted himself to
+spaced repetition. He seemed like an interesting person, his technique
+seemed like a good use of my time, and I wanted to do it.</p>
+<p>For the next 3 years after that I had a fairly constant low level of
+guilt/anxiety about how I should be doing SR flashcards. This anxiety
+spiked whenever I forgot something I had previously learned. Of course,
+after a year or so, I thought it was too late and that I was a lost
+cause with respect to spaced repetition.</p>
+<p>(Coincidentally, I now have a habit flashcard for how to counteract
+this exact flaw in my psychology. I call it “future weaponry” — when you
+see something cool that others are using, instead of thinking about what
+you could have done with a particular tool/knowledge/ability in the
+past, choose to think about what you will be able to do with it in the
+future.)</p>
+<p>Spaced repetition flashcards weren’t really feasible, though, until I
+got a smartphone. Say what you want about smartphones with respect to
+productivity overall, but the ability to do spaced repetition flashcards
+on them while walking and waiting around is for me, their killer app.
+And this basically requires easy syncing via an internet connection.</p>
+<p>Looking back at my cards from when I started, they’re pretty
+terrible. For example, I used tons of <a
+href="https://en.wikipedia.org/wiki/Cloze_test">cloze deletion</a>
+cards, a lazy and less effective way of making flashcards, rather than
+thinking about what knowledge I really wanted to retain and framing it
+in question form. I was also obsessed with memorizing math equations
+even though these have been pretty much completely useless.</p>
+<p>That said, by far the most important thing for me back then was to
+enjoy myself and maintain motivation, and I’ve been able to do that so
+far. I recommend you also try not to sweat the details as you begin your
+journey in spaced repetition.</p>
+</div>
+<div id="decks" class="section level2">
+<h2>Decks</h2>
+<div id="math" class="section level3">
+<h3>Math</h3>
+<p><a href="https://ankiweb.net/shared/info/535675942">Here</a> is a
+link to the deck. Major sources:</p>
+<ul>
+<li>Dan Klein’s “Lagrange Multipliers without Permanent Scarring”,
+tutorial, <a
+href="http://dbpubs.stanford.edu:8091/~klein/lagrange-multipliers.pdf">pdf</a>.
+Under the tag “LAGR”.</li>
+<li><a href="http://en.wikipedia.org/wiki/Complex_number">Wikipedia’s
+article</a> on complex numbers.</li>
+<li>Santo Fortunato’s “Community detection in graphs”, article, <a
+href="http://arxiv.org/abs/0906.0612">arxiv</a>. This is a major source
+for the “NETW” tag.</li>
+</ul>
+</div>
+<div id="programming" class="section level3">
+<h3>Programming</h3>
+<p>Here are links to the <a
+href="https://ankiweb.net/shared/info/609701403">basic R</a> and <a
+href="https://ankiweb.net/shared/info/1145032819">intermediate R</a>
+decks. Major source:</p>
+<ul>
+<li>An introduction to R, <a
+href="https://cran.r-project.org/doc/manuals/r-release/R-intro.pdf">pdf
+link here</a>.</li>
+<li>Hadley’s Advanced R, <a href="http://adv-r.had.co.nz/">link
+here</a>.</li>
+</ul>
+</div>
+<div id="psychology" class="section level3">
+<h3>Psychology</h3>
+<p><a href="https://ankiweb.net/shared/info/153746441">Here</a> is a
+link to the shared deck. Major sources:</p>
+<ul>
+<li>Wikipedia’s <a
+href="http://en.wikipedia.org/wiki/List_of_biases_in_judgment_and_decision_making">list
+of cognitive biases</a>. A major source for the “BIAS” tag.</li>
+<li><a
+href="https://andrewtmckenzie.com/spaced_repetition/en.wikipedia.org/wiki/Big_Five_personality_traits">Wikipedia’s
+article</a> on the Big Five personality traits. A source for the “PERS”
+tag.</li>
+<li><a href="http://www.youtube.com/watch?v=XBmJay_qdNc">Dan Ariely’s
+RSA Animate video</a>: The Truth About Dishonesty. Referenced under the
+search term “Ariely”.</li>
+<li><a href="http://www.amazon.com/gp/product/0071390111">Memory-related
+terms from Eric Kandel’s book</a> “The Principles of Neuroscience”</li>
+<li>Psychological nuggets from <a
+href="http://www.amazon.com/The-Happiness-Hypothesis-Finding-Ancient/dp/0465028020">Jonathon
+Haidt’s book “The Happiness Hypothesis”</a></li>
+<li>Psychological nuggets from Sarah Perry’s <a
+href="http://www.amazon.com/Every-Cradle-Is-Grave-Rethinking/dp/0989697290">book
+“Every Cradle is a Grave”</a></li>
+<li>Reinforcement learning and animal behavior, some from <a
+href="http://www.amazon.com/Learning-Behavior-Active-Edition/dp/0495095648">“Learning
+and Behavior”, Paul Chance’s book, amazon</a>. Under the “BEHA”
+tag.</li>
+</ul>
+</div>
+<div id="statistics" class="section level3">
+<h3>Statistics</h3>
+<p><a href="https://ankiweb.net/shared/info/1910277426">Here</a> is a
+link to the basic statistics and intuition deck. Major sources:</p>
+<ul>
+<li>Judea Pearl’s ”Causal inference in statistics: An overview”; <a
+href="http://projecteuclid.org/DPubS?service=UI&amp;version=1.0&amp;verb=Display&amp;handle=euclid.ssu/1255440554">paper</a>.
+Pearl calls this “everything I know about statistics in only 40 pages.”
+A major source for the “CAUS” tag.</li>
+<li>Edwin Jaynes’ <a
+href="http://www.amazon.com/Probability-Theory-Science-T-Jaynes/dp/0521592712">Probability
+Theory: The Logic of Science; amazon</a>. Heavily Bayesian. A major
+source for the “BAYS” tag.</li>
+<li><a href="http://www.stat.cmu.edu/~cshalizi/ADAfaEPoV/">Cosma
+Shalizi’s “Advanced Data Analysis from an Elementary Point of View”</a>.
+Noted as the Shalizi reference.</li>
+<li><a
+href="http://www.amazon.com/Data-Analysis-Bayesian-Devinderjit-Sivia/dp/0198568320">Bayesian
+Data Analysis, by Devinderjit Sivia and John Skilling</a>. The first
+five chapters. Noted as the “S&amp;S” reference; also a major source for
+the “BAYS” tag.</li>
+<li><a
+href="http://en.wikipedia.org/wiki/List_of_probability_distributions">Wikipedia’s
+list of probability distributions</a> – the major ones. A major source
+for the “DSTN” tag.</li>
+<li><a
+href="http://www.cs.otago.ac.nz/cosc453/student_tutorials/principal_components.pdf">Lindsay
+Smith’s Tutorial on PCA</a>.</li>
+<li><a
+href="http://books.google.com/books/about/Data_Analysis_with_Open_Source_Tools.html?id=mTXnXCLXJYgC">Philipp
+Janert’s book Data Analysis with Open Source Tools</a>, the chapter on
+PCA.</li>
+<li><a
+href="http://en.wikipedia.org/wiki/Eigenvalues_and_eigenvectors">Wikipedia’s
+page on eigenvalues and eigenvectors</a>. Under the “EIGN” tag.</li>
+<li><a href="http://www-bcf.usc.edu/~gareth/ISL/index.html">The book “An
+Introduction to Statistical Learning”</a>. Excellent introduction to
+statistics. Gareth James, in consultation with co-authors, kindly gave
+me permission to post some of the figures from this book in the
+deck.</li>
+</ul>
+</div>
+<div id="quotes" class="section level3">
+<h3>Quotes</h3>
+<p><a
+href="https://www.dropbox.com/s/cnzjk4sg4d04kr2/McKenzie_PublicQuotes.apkg?dl=0">Here</a>
+is a link to my deck with a sampling of about 50 quotes that I enjoy.
+And <a href="https://glutanimate.com/">here</a> is a link to an
+excellent art history deck by glutaminate that I use as a quote deck
+without worrying about getting the information correct.</p>
+</div>
+<div id="download-statistics" class="section level3">
+<h3>Download statistics</h3>
+<center>
+<div class="figure">
+<img src="Figs/Ankiweb_shared.png#center" style="width:100.0%" alt="" />
+<p class="caption">Shared Anki Deck Download Statistics as of Jan
+2023</p>
+</div>
+</center>
+</div>
+</div>
+<div id="acknowledgments" class="section level2">
+<h2>Acknowledgments</h2>
+<p>I owe a lot to Damien Elmes, who wrote the open-source, free Anki
+software. I also owe a lot to Gwern, <a
+href="https://www.gwern.net/Spaced-repetition">who has written about
+spaced repetition extensively</a>, and who made thousands of his
+Mnemosyne cards available to anyone to download for free. I downloaded
+these one day on a whim, converted them to Anki, and that was what
+really made me think of having my own cards as being a realistic,
+practical option. Thanks, Damien and Gwern.</p>
+</div>
+<div id="references" class="section level2 unnumbered">
+<h2 class="unnumbered">References</h2>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-baconHistoryLifeDeath2005" class="csl-entry">
+Bacon, F., <em>History Of Life And Death</em>, Kessinger Publishing,
+LLC, p. 48, 2005.
+</div>
+<div id="ref-ferriss4HourWorkweekEscape2009" class="csl-entry">
+Ferriss, T., <em>The 4-Hour Workweek: Escape 9-5, Live Anywhere, and
+Join the New Rich</em>, New York: Harmony, p. 448, 2009.
+</div>
+<div id="ref-lallyHowAreHabits2010" class="csl-entry">
+Lally, P., Jaarsveld, C. H. M. van, Potts, H. W. W. and Wardle, J., How
+Are Habits Formed: Modelling Habit Formation in the Real World,
+<em>European Journal of Social Psychology</em>, vol.
+<strong>40</strong>, no. 6, pp. 998–1009, accessed December 28, 2021,
+from <a
+href="https://onlinelibrary.wiley.com/doi/abs/10.1002/ejsp.674">https://onlinelibrary.wiley.com/doi/abs/10.1002/ejsp.674</a>,
+2010. DOI: <a
+href="https://doi.org/10.1002/ejsp.674">10.1002/ejsp.674</a>
+</div>
+<div id="ref-ThinkingFastSlow" class="csl-entry">
+<a
+href="https://www.amazon.com/Thinking-Fast-Slow-Daniel-Kahneman/dp/0374533555">Thinking,
+Fast and Slow: Kahneman, Daniel: 8601200766745: Amazon.com: Books</a>.
+</div>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="By: Andrew McKenzie" />
+
+
+<title>Berkson’s Paradox and Trade-Offs</title>
+
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/yeti.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"></a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://andrewtmckenzie.com">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+</li>
+<li>
+  <a href="https://scholar.google.com/citations?user=H1Yr8oMAAAAJ&amp;hl=en">
+    <span class="fa fa-graduation-cap"></span>
+     
+    Scholar
+  </a>
+</li>
+<li>
+  <a href="https://neurobiology.substack.com/">
+    <span class="fa fa-book"></span>
+     
+    Blog
+  </a>
+</li>
+<li>
+  <a href="https://github.com/andymckenzie">
+    <span class="fa fa-github"></span>
+     
+    Github
+  </a>
+</li>
+<li>
+  <a href="https://www.linkedin.com/in/andymckenzie/">
+    <span class="fa fa-linkedin"></span>
+     
+    LinkedIn
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Berkson’s Paradox and Trade-Offs</h1>
+<h4 class="author">By: Andrew McKenzie</h4>
+<h4 class="date">Date: First Published: 2012-12-30; Last Updated: 2023-01-08</h4>
+
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#abstract">Abstract</a></li>
+<li><a href="#how-trade-offs-relate-to-selection">How Trade-Offs Relate to Selection</a></li>
+<li><a href="#conventionally-attractive-vs-skilled-actors">Conventionally Attractive vs Skilled Actors</a></li>
+<li><a href="#sodium-vs-sugar-in-drinks">Sodium vs Sugar In Drinks</a></li>
+<li><a href="#using-berksons-paradox-to-classify-trade-offs">Using Berkson’s Paradox To Classify Trade-Offs</a></li>
+</ul>
+</div>
+
+<ul>
+<li><a href="https://andrewtmckenzie.com/">Link back to the home page</a></li>
+</ul>
+<style type="text/css">
+  body{
+  font-size: 14.5pt;
+  overflow-y:scroll;
+}
+h1.title {
+  font-size: 25pt;
+}
+  h4{
+  font-size: 17pt;
+}
+  td{
+    font-size: 14.5pt;
+    padding:0px;
+    cellpadding="0";
+    cellspacing="0"
+  }
+  th {
+    font-size: 14.5pt;
+    font-weight: bold;
+  }
+    .navbar {
+  font-size: 13pt;
+  }
+</style>
+<div id="abstract" class="section level2">
+<h2>Abstract</h2>
+<p>Most real-world “trade-offs” in decision-making are artifacts of decision-maker preferences for certain types of outcomes. If we consider all possible choices, instead of just the ones that intuitively have some value to decision-makers (i.e., ones that are not “dominated” by others), then there would be no inverse correlation between the relevant outcome axes. Thus it is the act of selection, equivalent to the conditional independence result of <a href="http://en.wikipedia.org/wiki/Berkson&#39;s_paradox">Berkson’s paradox</a>, that creates most classes of trade-offs.</p>
+<hr />
+</div>
+<div id="how-trade-offs-relate-to-selection" class="section level2">
+<h2>How Trade-Offs Relate to Selection</h2>
+<p>A decision is <a href="http://en.wikipedia.org/wiki/Dominating_decision_rule">dominated</a> if there are no possible combinations of parameters under which it can yield an outcome with a higher value. For example, <a href="http://en.wikipedia.org/wiki/Decoy_effect">consider</a> the following types of MP3 players:</p>
+<center>
+<img src="Old/output/page/2012/images/screen-shot-2012-12-30-at-11-59-19-am.png" title="fig:" style="width:42.0%" alt="MP3 Players" />
+</center>
+<p>Reasonable people might choose A or B if they prefer more storage or lower prices. However, no matter what your preferences on these two variables are, there is never any reason to choose option C over option A, since it is more expensive and has less storage capacity. In the real world, consumers tend to ignore choices that are dominated. Indeed, businesses tend to not even bother to offer such choices, unless they think that their product offers some other quality, such as brand name, that also will merit consumer consideration as a third parameter.</p>
+<p>More generally, imagine that you have a decision to make and can choose only one option. You have many choices, each with two parameter values that you care about, which are independently sampled from a uniform distribution. The salient class will be those options that you’ll consider, because you wouldn’t even consider a choice if some other choice systematically dominates it.</p>
+<center>
+<div class="figure">
+<img src="Old/output/page/2012/images/screen-shot-2012-12-30-at-1-13-52-pm.png" style="width:65.0%" alt="" />
+<p class="caption">The red points in these uniform distributions are the ones you might care about if you’re trying to maximize these two variables</p>
+</div>
+</center>
+<p>Just to be clear, note that the existence of a selection-based trade-off does not <em>imply</em> that the two variables are distributed independently of one another. My point is merely that the existence of a trade-off does not imply non-independence.</p>
+<p>Berkson’s paradox says that two independent events can be made dependent by conditioning on a consequence of both of them. As an example, consider three events:</p>
+<ul>
+<li>A = Randomly Choose Between Integers 1 to 10,</li>
+<li>B = Randomly Choose Between Integers 1 to 10,</li>
+<li>C = A + B,</li>
+</ul>
+<p>which establishes a causal network of A -&gt; C &lt;- B. Imagine that you only select triplets (A, B, C) such that C &gt; 16. Although A and B are each chosen randomly, such a stratification on the levels of C will <em>induce</em> an inverse correlation between A and B. And this is exactly the sort of selection you impose upon possible choices when you make a decision that involves a trade-off.</p>
+</div>
+<div id="conventionally-attractive-vs-skilled-actors" class="section level2">
+<h2>Conventionally Attractive vs Skilled Actors</h2>
+<p>Here is Manfred’s <a href="http://lesswrong.com/lw/eri/taking_correlation_does_not_imply_causation_back/7k4c">example</a> (slightly edited):</p>
+<blockquote>
+<p>Conventionally attractive people are more likely to be hired as actors. Good actors are also more likely to be hired as actors. So if we look at “people who are actors,” then we’ll get people who are attractive but can’t really act, people who are attractive and can act, and people who can act and aren’t really attractive. If attractiveness and acting ability are independent, these three groups will be about equally full.</p>
+<p>Thus if we look at actors in general in our simple model, 2/3 of them will be attractive and 2/3 of them will be good actors. But of the ones who are attractive, only 1/2 will be good actors. So being attractive. is correlated with being a bad actor! Not because attractiveness rots your brain (a), or because acting well makes you ugly (b), and not because acting classes cause both good acting and non-attractiveness, or diet pills cause both beauty and bad acting (c). Instead, it’s just because how we picked actors made attractiveness and acting ability “compete for the same niche.”</p>
+</blockquote>
+<p>Thus if you consider the set of Hollywood actors, you might conclude that conventionally attractive people are less likely to be able to actually act. But this observed relationship doesn’t mean that these two qualities are <em>intrinsically</em> inversely correlated. Instead, selection effects explain the relationship quite well.</p>
+</div>
+<div id="sodium-vs-sugar-in-drinks" class="section level2">
+<h2>Sodium vs Sugar In Drinks</h2>
+<p>As an example with real data, consider the <a href="http://en.wikipedia.org/wiki/Nutrient">macronutrients</a> in the set of Starbucks drinks circa 2008. In particular, compare the sugar content of a drink to its salt content (<a href="http://www.factual.com/data-apis/places">the data now requires an e-mail request</a>;<a href="https://github.com/andymckenzie/Starbucks-Drinks">code</a>):</p>
+<center>
+<div class="figure">
+<img src="Old/output/page/2012/images/screen-shot-2012-12-30-at-12-48-31-pm.png#center" style="width:60.0%" alt="" />
+<p class="caption">Starbucks drinks data</p>
+</div>
+</center>
+<p>Although the relationship is far from perfect, the selection effect here is clear: in order to actually be bought, every drink needs to offer some sort of benefit to consumers. And consumers typically value taste. I expect that those drinks which are low on both of these categories offer something else, such as <a href="http://en.wikipedia.org/wiki/Epigallocatechin_gallate">catechins</a>.</p>
+</div>
+<div id="using-berksons-paradox-to-classify-trade-offs" class="section level2">
+<h2>Using Berkson’s Paradox To Classify Trade-Offs</h2>
+<p>Many trade-offs are the result of a Berkson’s paradox-like selection bias. Still, there can still be trade-offs in the absence of selection. For example, consider the false alarm vs oversight trade-off, which can be parametrized in a <a href="http://en.wikipedia.org/wiki/Null_hypothesis">null hypothesis testing</a> setting by the <a href="http://en.wikipedia.org/wiki/P-value">p-value</a> threshold. No selection is necessary to invoke a trade-off between the rate of false positives and false negatives. Over the full range of both the type I error rate and the type II error rate, shifting the p-value threshold will have the same direction of effect.</p>
+<p>Thus this is a property we can use to carve up trade-off space into two classes:</p>
+<p>- trade-offs between two variables which are “intrinsically” mostly independent, but become dependent as a result of our selecting only a particular subset of them, or</p>
+<p>- trade-offs between two variables which are dependent, to at least some degree, over their full range of possible values.</p>
+<p>It also suggests that another potentially fruitful way of dividing the first set of trade-offs is to think about what type of process or agent is performing the selection.</p>
+<p><strong>Acknowledgment</strong>: Thanks to <a href="http://coarsegrained.wordpress.com/">Brian Potter</a> for discussion related to this idea.</p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

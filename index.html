@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Andrew McKenzie’s Home Page</title>
+
+<script src="site_libs/header-attrs-2.19/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/yeti.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+
+
+
+
+<link rel="stylesheet" href="columns.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"></a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://andrewtmckenzie.com">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+</li>
+<li>
+  <a href="https://scholar.google.com/citations?user=H1Yr8oMAAAAJ&amp;hl=en">
+    <span class="fa fa-graduation-cap"></span>
+     
+    Scholar
+  </a>
+</li>
+<li>
+  <a href="https://neurobiology.substack.com/">
+    <span class="fa fa-book"></span>
+     
+    Blog
+  </a>
+</li>
+<li>
+  <a href="https://github.com/andymckenzie">
+    <span class="fa fa-github"></span>
+     
+    Github
+  </a>
+</li>
+<li>
+  <a href="https://www.linkedin.com/in/andymckenzie/">
+    <span class="fa fa-linkedin"></span>
+     
+    LinkedIn
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Andrew McKenzie’s Home Page</h1>
+
+</div>
+
+
+<style type="text/css">
+  body{
+  font-size: 14.5pt;
+  overflow-y:scroll;
+}
+h1.title {
+  font-size: 22pt;
+}
+  h4{
+  font-size: 15pt;
+}
+  td{
+    font-size: 14.5pt;
+    padding:0px;
+    cellpadding="0";
+    cellspacing="0"
+  }
+  th {
+    font-size: 14.5pt;
+    font-weight: bold;
+  }
+  .navbar {
+  font-size: 13pt;
+  }
+</style>
+<style>                     
+
+.navbar-brand {
+color:blue!important;
+}
+</style>
+<style>
+.column-left{
+  float: left;
+  width: 46%;
+  text-align: left;
+}
+.column-middle{
+  float: middle;
+  width: 8%;
+  text-align: center;
+}
+.column-right{
+  float: right;
+  width: 46%;
+  text-align: right;
+}
+.column-total{
+  float: left;
+  width: 100%;
+  text-align: left;
+}
+</style>
+<p>Hello out there. Welcome to my academic website. I’m currently a
+psychiatry resident in the physician-scientist program at the Icahn
+School of Medicine at Mount Sinai, which is in NYC. My primary research
+interests are in Alzheimer’s disease and related disorders, brain
+banking and preservation, and computational biology. Thanks for
+visiting.</p>
+<div class="column-left">
+<div id="links" class="section level3">
+<h3>Links</h3>
+<ul>
+<li><a
+href="https://scholar.google.com/citations?user=H1Yr8oMAAAAJ&amp;hl=en">Publications</a></li>
+<li><a href="https://neurobiology.substack.com/">Neuroscience
+blog</a></li>
+<li><a href="https://github.com/andymckenzie">Github</a></li>
+<li><a
+href="https://www.linkedin.com/in/andymckenzie/">LinkedIn</a></li>
+</ul>
+</div>
+<div id="alzheimers-disease-and-related-disorders"
+class="section level3">
+<h3>Alzheimer’s disease and related disorders</h3>
+<ul>
+<li><a
+href="https://actaneurocomms.biomedcentral.com/articles/10.1186/s40478-022-01425-5">Deep
+learning of myelin histopathology in cognitive impairment</a></li>
+<li><a
+href="https://www.proquest.com/openview/a0b4db95d8870b2e375a83ca11bf8a62">PhD
+thesis on oligodendrocytes in Alzheimer’s disease</a></li>
+<li><a
+href="https://neurobiology.substack.com/p/a-tale-of-two-apoe-alleles">A
+tale of two APOE alleles</a></li>
+</ul>
+</div>
+<div id="software" class="section level3">
+<h3>Software</h3>
+<ul>
+<li><a href="https://github.com/andymckenzie/DGCA">DGCA: Differential
+Gene Correlation Analysis (R package)</a></li>
+<li><a href="https://github.com/andymckenzie/BRETIGEA">BRETIGEA: Brain
+Cell Type Specific Gene Expression Analysis (R package)</a></li>
+<li><a href="https://github.com/andymckenzie/bayesbio">bayesbio:
+Miscellaneous functions for bioinformatics and Bayesian statistics (R
+package)</a></li>
+<li><a href="https://github.com/andymckenzie/demedify">demedify:
+Demystifying and expanding medical acronyms and terms (Python Reddit
+bot)</a></li>
+</ul>
+</div>
+<div id="machine-learning-in-medicine" class="section level3">
+<h3>Machine learning in medicine</h3>
+<ul>
+<li><a
+href="https://neurobiology.substack.com/p/a-mock-case-of-neonatal-meningitis">A
+mock case of neonatal meningitis</a></li>
+<li><a
+href="https://neurobiology.substack.com/p/technical-debt-probably-the-main-roadblack-in-applying-machine-learning-to-medicine">Technical
+debt: a roadblack in applying machine learning to medicine</a></li>
+<li><a
+href="https://neurobiology.substack.com/p/generating-new-protein-sequences-with-a-character-level-recurrent-neural-network">Generating
+new protein sequences with a character-level recurrent neural
+network</a></li>
+</ul>
+</div>
+</div>
+<div class="column-middle">
+
+</div>
+<div class="column-left">
+<div id="general-neuroscience" class="section level3">
+<h3>General neuroscience</h3>
+<ul>
+<li><a href="https://www.nature.com/articles/s41598-018-27293-5">Brain
+cell type gene expression</a></li>
+<li><a href="https://andrewtmckenzie.com/neuron-typing">Neuron
+typing</a></li>
+<li><a
+href="https://neurobiology.substack.com/p/what-would-it-mean-to-decode-a-non">Towards
+decoding a memory from a static map of the brain</a></li>
+</ul>
+</div>
+<div id="brain-banking-and-preservation" class="section level3">
+<h3>Brain banking and preservation</h3>
+<ul>
+<li><a href="https://brainpreservation.github.io/Preface">What is brain
+preservation? A brief preface on the topic</a><br />
+</li>
+<li><a href="https://brainpreservation.github.io/Assessment">Towards
+measurable goals for structural brain preservation</a></li>
+<li><a
+href="https://neurobiology.substack.com/p/two-paths-toward-improved-structural">Ideal
+quality vs simplicity trade-offs among fixative delivery
+methods</a></li>
+<li><a
+href="https://actaneurocomms.biomedcentral.com/articles/10.1186/s40478-019-0799-y">Review
+of methods for perfusion fixation</a></li>
+<li><a href="https://osf.io/8zd4e/">Preservation of biomolecules with
+glutaraldehyde</a></li>
+<li><a
+href="https://www.uni-muenster.de/Ejournals/index.php/fnp/article/view/4368">Ex
+situ perfusion fixation for brain banking: a technical report</a></li>
+<li><a
+href="https://neurobiology.substack.com/p/removing-the-brain-from-the-skull">Techniques
+for extracting the brain from the skull</a></li>
+<li><a href="https://brainpreservation.github.io/Inference">Engram
+archaeology: inference in damaged brains</a></li>
+<li><a href="https://brainpreservation.github.io/">Other essays on brain
+preservation</a></li>
+</ul>
+</div>
+<div id="learning-and-decision-making" class="section level3">
+<h3>Learning and decision-making</h3>
+<ul>
+<li><a href="https://andrewtmckenzie.com/spaced_repetition">How I use
+spaced repetition learning</a></li>
+<li><a href="https://andrewtmckenzie.com/the-canon-of-trade-offs">The
+canon of decision-making trade-offs across domains</a></li>
+<li><a
+href="https://andrewtmckenzie.com/berksons-paradox-and-trade-offs">Classifying
+trade-offs on the basis of Berkson’s paradox</a></li>
+</ul>
+<p><span class="math display">\[\\[0.05in]\]</span></p>
+</div>
+</div>
+<div id="contact" class="section level3 column-total">
+<h3>Contact</h3>
+<p>To contact me directly (I regret I am not always able to respond to
+emails): <a href="mailto:amckenz@gmail.com"
+class="email">amckenz@gmail.com</a></p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

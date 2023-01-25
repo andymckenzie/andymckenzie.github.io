@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="By: Andrew McKenzie" />
+
+
+<title>The canon of decision-making trade-offs across domains</title>
+
+<script src="site_libs/header-attrs-2.19/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/yeti.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+
+
+
+<style type="text/css">
+/* for pandoc --citeproc since 2.11 */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="bp_book_css.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"></a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://andrewtmckenzie.com">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+</li>
+<li>
+  <a href="https://scholar.google.com/citations?user=H1Yr8oMAAAAJ&amp;hl=en">
+    <span class="fa fa-graduation-cap"></span>
+     
+    Scholar
+  </a>
+</li>
+<li>
+  <a href="https://neurobiology.substack.com/">
+    <span class="fa fa-book"></span>
+     
+    Blog
+  </a>
+</li>
+<li>
+  <a href="https://github.com/andymckenzie">
+    <span class="fa fa-github"></span>
+     
+    Github
+  </a>
+</li>
+<li>
+  <a href="https://www.linkedin.com/in/andymckenzie/">
+    <span class="fa fa-linkedin"></span>
+     
+    LinkedIn
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">The canon of decision-making trade-offs
+across domains</h1>
+<h4 class="author">By: Andrew McKenzie</h4>
+<h4 class="date">Date: First Published: 2010-07-10; Last Major Update:
+2023-01-08</h4>
+
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#introduction" id="toc-introduction">Introduction</a></li>
+<li><a href="#efficiency-vs-unpredictability"
+id="toc-efficiency-vs-unpredictability">#1: Efficiency vs
+Unpredictability</a></li>
+<li><a href="#speed-vs-accuracy" id="toc-speed-vs-accuracy">#2: Speed vs
+Accuracy</a></li>
+<li><a href="#exploration-vs-exploitation"
+id="toc-exploration-vs-exploitation">#3: Exploration vs
+Exploitation</a></li>
+<li><a href="#precision-vs-simplicity"
+id="toc-precision-vs-simplicity">#4: Precision vs Simplicity</a></li>
+<li><a href="#surely-some-vs-maybe-more"
+id="toc-surely-some-vs-maybe-more">#5: Surely Some vs Maybe
+More</a></li>
+<li><a href="#some-now-vs-more-later"
+id="toc-some-now-vs-more-later">#6: Some Now vs More Later</a></li>
+<li><a href="#flexibility-vs-commitment"
+id="toc-flexibility-vs-commitment">#7: Flexibility vs
+Commitment</a></li>
+<li><a href="#sensitivity-vs-specificity"
+id="toc-sensitivity-vs-specificity">#8: Sensitivity vs
+Specificity</a></li>
+<li><a href="#protection-vs-freedom" id="toc-protection-vs-freedom">#9:
+Protection vs Freedom</a></li>
+<li><a href="#loyalty-vs-universality"
+id="toc-loyalty-vs-universality">#10: Loyalty vs Universality</a></li>
+<li><a href="#saving-vs-savoring" id="toc-saving-vs-savoring">#11:
+Saving vs Savoring</a></li>
+<li><a href="#references" id="toc-references">References</a></li>
+</ul>
+</div>
+
+<head>
+<meta name="citation_title" content="The canon of decision-making trade-offs across domains">
+<meta name="og:title" content="The canon of decision-making trade-offs across domains">
+<meta name="citation_author" content="Andrew T McKenzie">
+<meta name="og:site" content="andrewtmckenzie.com">
+<meta name="og:type" content="article">
+<meta name="citation_publication_date" content="2010-07-10">
+<meta name="citation_fulltext_html_url" content="https://andrewtmckenzie.com/the-canon-of-trade-offs">
+<meta name="og:url" content="https://andrewtmckenzie.com/the-canon-of-trade-offs">
+<meta name="citation_fulltext_world_readable" content="">
+</head>
+<style type="text/css">
+  body{
+  font-size: 14.5pt;
+  overflow-y:scroll;
+}
+h1.title {
+  font-size: 25pt;
+}
+  h4{
+  font-size: 17pt;
+}
+  td{
+    font-size: 14.5pt;
+    padding:0px;
+    cellpadding="0";
+    cellspacing="0"
+  }
+  th {
+    font-size: 14.5pt;
+    font-weight: bold;
+  }
+    .navbar {
+  font-size: 13pt;
+  }
+</style>
+<hr />
+<div id="introduction" class="section level3">
+<h3>Introduction</h3>
+<p>Most of the time, when we make decisions, we don’t bother thinking
+about the trade-offs involved. Instead, we focus on the details of the
+particular decision we have to make. Meta-level reasoning is
+time-consuming and taxing, so most of the time, this is the best
+strategy. Then why think at all about decisions at the more abstract,
+trade-off level? I offer a few reasons:</p>
+<p>First, it can lend clarity to the types of parameters that we might
+want to consider when we do reason explicitly. In multi-dimensional
+problems in particular, it can be useful to have a vocabulary to
+consider and discuss the most important decision axes.</p>
+<p>Second, we can learn useful heuristics that we can apply without much
+explicit reasoning the next time we make a decision that involves that
+class of trade-off.</p>
+<p>Third, it offers a way to organize examples so that we can more
+efficiently learn about how others have dealt with the types of
+decisions that we face.</p>
+<p>Fourth, I think there is a psychological benefit of some kind in
+knowing that you are not alone in facing some of these dilemmas.</p>
+<p>Finally, I think a broader awareness and an accepted common knowledge
+that <em>there are trade-offs</em> will help make policy discussions
+more fruitful at the local and broader scales.</p>
+<p>I’m always on the look-out to add a) canon-worthy classes of
+trade-offs that are currently not subsumed by the below or b) any nice
+examples of examples of trade-offs within a class. If you have any
+thoughts, please <a href="https://andrewtmckenzie.com/">contact
+me</a>.</p>
+<hr />
+</div>
+<div id="efficiency-vs-unpredictability" class="section level3">
+<h3>#1: Efficiency vs Unpredictability</h3>
+<p>“It’s funny. All you have to do is say something nobody understands
+and they’ll do practically anything you want them to.” – J.D.
+Salinger</p>
+<p>Upside of efficiency: achieve your goals using fewer resources</p>
+<p>Upside of unpredictability: competitors are worse at modeling your
+behavior</p>
+<p><b>Major Example</b></p>
+<ul>
+<li>In <a href="http://en.wikipedia.org/wiki/Texas_hold_&#39;em">Texas
+Hold ’Em</a>, if you’d never make a large bet pre-flop with a bad hand
+like J3 off-suit, then your opponents can be be very sure that you do
+not have that hand if you make that bet. So, making an aggressive bet
+even with a bad hand every now and then makes it harder for your
+opponents to model you. This makes it easier for you to deceive them. On
+the other hand, there are fewer ways for a relatively worse hand to win
+if the betting does come to a showdown.</li>
+</ul>
+<p><b>Ancillary Examples</b></p>
+<ul>
+<li>In <a
+href="http://en.wikipedia.org/wiki/Antipredator_adaptation">ethology</a>,
+consider a prey animal escaping from its predator. If the prey
+predictably uses the same, efficient trick to escape, it saves energy
+that would be spent escaping. But, its predator can learn this rule and
+use it for capture. For example, see a tentacled snake learn such a rule
+<a
+href="http://www.youtube.com/watch?v=urBp2X5mBmQ&amp;feature=player_embedded">here</a>.</li>
+<li>In primate status and courtship games, individuals likely benefited
+from veiling their true intentions in conversation <a
+href="https://psycnet.apa.org/record/1997-36638-011"><span
+class="citation">(Miller, 1997)</span></a>. In such a situation,
+deception-detection becomes advantageous as well, and one way for agents
+to fool others and make their mental modeling more difficult is to be
+unpredictable. This likely selected for some amount of randomness and
+thus novelty in behavior.</li>
+</ul>
+<center>
+<div class="figure">
+<img
+src="Old/output/page/2012/images/screen-shot-2013-02-15-at-5-41-44-pm.png#center"
+style="width:45.0%" alt="" />
+<p class="caption"><a
+href="http://www.youtube.com/watch?v=urBp2X5mBmQ&amp;feature=player_embedded">The
+tentacled snake’s knowledge of its prey’s escape rule</a></p>
+</div>
+</center>
+<p><b>Properties</b></p>
+<ul>
+<li>In a competitive environment, the classic way for an agent to
+sacrifice efficiency for unpredictability is through adding randomness
+to its behavior. The key question is typically not <em>whether</em> to
+add randomness, but <em>how much</em> randomness to add.</li>
+</ul>
+<hr />
+</div>
+<div id="speed-vs-accuracy" class="section level3">
+<h3>#2: Speed vs Accuracy</h3>
+<p>“Fast is fine but accuracy is final.” – Wyatt Earp</p>
+<p>Upside to speed: less time to achieve goal</p>
+<p>Upside to accuracy: higher probability of success in achieving
+goal</p>
+<p><b>Major Example</b></p>
+<ul>
+<li>Like many machine learning algorithms, Watson, the AI created by IBM
+to compete at Jeopardy, faced a speed vs accuracy trade-off in that the
+longer it has to search its databases and run its algorithms, the more
+confidently it could assign a high probability to one of its
+answers.</li>
+</ul>
+<p><b>Ancillary Examples</b></p>
+<ul>
+<li>In football, field goal (FG) kickers must contract their muscles
+quicker in order to swing their thighs more rapidly when they want to
+kick the ball further. This comes at the cost of decreased average
+coordination among muscle movements, because each of them must occur
+within a narrower window. Thus, we see a decrease in lateral accuracy of
+field goals as longitudinal distance increases.</li>
+<li>In communication, if you take longer to respond to emails, people
+will expect your responses to be more accurate, whereas if respond right
+away, their expectations will be much lower. This is because your
+interlocutors will intuitively recognize the trade-off you face between
+speed and accuracy.</li>
+</ul>
+<center>
+<div class="figure">
+<img src="Figs/FG_Success.png#center" style="width:60.0%" alt="" />
+<p class="caption"><a
+href="http://www.advancednflstats.com/2008/11/just-for-kicks.html">2008
+NFL Field Goal Data</a></p>
+</div>
+</center>
+<p><b>Properties</b></p>
+<ul>
+<li>Speed vs accuracy trade-offs tend to operate within particular
+ranges. Outside of these ranges, probabilities of success/failure
+theoretically should increase/decrease to 1/0. However, among humans, it
+is fairly common that the probability of success can paradoxically
+revert more towards the mean outside of this range, as people
+(especially non-domain experts) “overthink” their decision or
+action.</li>
+</ul>
+<hr />
+</div>
+<div id="exploration-vs-exploitation" class="section level3">
+<h3>#3: Exploration vs Exploitation</h3>
+<p>“Don’t get set into one form, adapt it and build your own, and let it
+grow; be like water.” - Bruce Lee</p>
+<p>“I think that the minute that you have a backup plan, you’ve admitted
+that you’re not going to succeed.” - Elizabeth Holmes</p>
+<p>Upside to exploration: learn more about possible choices</p>
+<p>Upside to exploitation: gain on average more from the outcome of this
+particular choice</p>
+<p><strong>Major Example</strong></p>
+<ul>
+<li>In developmental economics, you can think of basic science research
+as “exploration” and of applied science research as “exploitation” <a
+href="http://ideas.repec.org/a/eee/respol/v30y2001i3p509-532.html"><span
+class="citation">(Salter et al., 2001)</span></a>. That is, investing in
+the search for mechanism with a relatively less clear pathway towards
+usefulness takes scarce resources, but probabilistically makes future
+applied efforts more powerful.</li>
+</ul>
+<p><strong>Ancillary Examples</strong></p>
+<ul>
+<li>In <a href="http://en.wikipedia.org/wiki/Multi-armed_bandit">the
+multi-armed bandit problem</a>, a gambler is faced with multiple levers
+to pull from, each of which has an unknown but unique distribution of
+payouts. She can either sample a diverse set of levers to discover more
+info about their expected reward, or she can just choose the lever with
+the highest current expected payout.</li>
+<li>In organization theory, firms can “exploit” their worker’s knowledge
+by forcing them to socialize to their particular cultural code more
+quickly, but this leads to less “exploration” and ultimately a lower
+equilibrium knowledge level for the firm <a
+href="https://www.jstor.org/stable/2634940"><span
+class="citation">(March, 1991)</span></a>.</li>
+</ul>
+<center>
+<div class="figure">
+<img
+src="Old/output/page/2012/images/screen-shot-2013-03-27-at-1-04-36-pm.png#center"
+style="width:60.0%" alt="" />
+<p class="caption"><a href="https://www.jstor.org/stable/2634940">Figure
+modified from March 1991 “Exploration and Exploitation in Organizational
+Learning”</a></p>
+</div>
+</center>
+<p><strong>General Properties</strong></p>
+<ul>
+<li>As one’s initial knowledge about a topic becomes relatively worse,
+exploration becomes relatively more valuable relative to
+exploitation.</li>
+<li>Another way of formulating this trade-off is through the lens of <a
+href="http://en.wikipedia.org/wiki/Satisficing">satisficing vs
+optimizing</a>.</li>
+</ul>
+<hr />
+</div>
+<div id="precision-vs-simplicity" class="section level3">
+<h3>#4: Precision vs Simplicity</h3>
+<p>“Plurality is never to be posited without necessity.” - <a
+href="http://en.wikiquote.org/wiki/William_of_Occam">William of
+Occam</a></p>
+<p>Upside to precision: explain a more specific set of phenomena
+better</p>
+<p>Upside to simplicity: explain a more general set of phenomena
+better</p>
+<p><strong>Major Example</strong></p>
+<ul>
+<li>Imagine that you have three best friends. Two of them are kind
+<em>green aliens</em> and one of them is rich. You could say “I am the
+kind of person who could only be friends with someone who is either kind
+and a green alien, or rich.” But this might be overfitting your model of
+friendship to your current sample. Instead, it might be more appropriate
+to say that you could only be friends with someone who is either kind or
+rich.</li>
+</ul>
+<p><strong>Ancillary Examples</strong></p>
+<ul>
+<li>In describing the path up to one’s apartment, one could say “there
+are 114 stairs”, or one could say “there are on the order of 100
+stairs”; vagueness is less precise but it is also simpler and easier to
+communicate.</li>
+<li>In a <a
+href="http://www.stat.cmu.edu/~cshalizi/uADA/12/lectures/ch04.pdf">statistical
+regression</a>, consider building a model while varying the smoothing
+parameter that specifies the degree to which nearby training data points
+are averaged together when formulating the prediction. If you do
+relatively more smoothing, then your prediction will be relatively less
+precise in explaining the training set, but it is also simpler because
+it is less affected by potential outliers, so it might explain new data
+better.</li>
+</ul>
+<center>
+<div class="figure">
+<img
+src="Old/output/page/2012/images/screen-shot-2013-03-29-at-1-00-07-pm.png#center"
+style="width:60.0%" alt="" />
+<p class="caption"><a
+href="http://www.stat.cmu.edu/~cshalizi/uADA/12/">The generalization
+error of a regression model (black) is based on intrinsic data noise
+(green), approximation error from smoothing (i.e., lack of simplicity,
+red), and estimator variance (i.e. lack of precision, blue). Modified
+from Shalizi’s ADA Lecture notes</a></p>
+</div>
+</center>
+<p><strong>General Properties</strong></p>
+<ul>
+<li>The propensity of humans to incorrectly trade-off precision and
+simplicity in certain contexts, like when we say that the probability of
+events X <em>and</em> Y is greater than the probability of just event X,
+is called the <a
+href="http://en.wikipedia.org/wiki/Conjunction_fallacy">conjunction
+fallacy</a>. </li>
+</ul>
+<hr />
+</div>
+<div id="surely-some-vs-maybe-more" class="section level3">
+<h3>#5: Surely Some vs Maybe More</h3>
+<p>“A bird in the hand is worth two in the bush.” - <a
+href="http://www.phrases.org.uk/meanings/a-bird-in-the-hand.html">Medieval proverb</a></p>
+<p>Upside of surely some: higher probability of achieving goal state</p>
+<p>Upside of maybe more: goal state has higher utility</p>
+<p><strong>Major Example</strong> </p>
+<ul>
+<li>In <a href="http://en.wikipedia.org/wiki/Brinkmanship">game
+theory</a>, brinkmanship is the practice of pushing competitive
+negotiation situations to the verge of disaster, in an attempt to induce
+concessions from one’s opponent. The closer towards disaster
+the situation is pushed, the riskier brinkmanship becomes, since
+the situation is more likely to truly reach disaster. On the other hand,
+closer to the edge often means that the expected value of concessions
+from one’s opponent improves, too. </li>
+</ul>
+<p><strong>Ancillary Examples</strong> </p>
+<ul>
+<li>In evolutionary psychology, the decision between someone who is more
+stable and dependable or someone with better looks and health is one of
+the universal trade-offs across cultures <a
+href="http://psycnet.apa.org/psycinfo/2005-07297-020"><span
+class="citation">(Shackelford et al., 2005)</span></a>.</li>
+<li>In finance, <a
+href="http://en.wikipedia.org/wiki/Modern_portfolio_theory">some
+models</a> suggest that investors trade-off between minimizing the
+variance of their portfolio and maximizing their average return. Since
+humans tend to have a diminishing marginal return to each additional
+dollar, investors are risk averse and willing to give up expected
+returns for a safer option.</li>
+</ul>
+<center>
+<div class="figure">
+<img
+src="Old/output/page/2012/images/screen-shot-2013-02-14-at-7-42-27-pm.png#center"
+style="width:50.0%" alt="" />
+<p class="caption"><a
+href="http://en.wikipedia.org/wiki/Chicken_(game)">Payoff matrix for the
+game of chicken, the classic game of brinkmanship</a></p>
+</div>
+</center>
+<p><strong>General Properties</strong></p>
+<ul>
+<li>Consider the case that the expected utility for both choices is the
+same. Then, this trade-off reduces to: what is the agent’s risk
+preference? If risk preference is non-neutral, then this trade-off can
+be relevant even when one of the choices has higher expected
+utility.</li>
+<li>In competitive environments, people often assume an efficient market
+and use reverse inference to conclude that if something is more
+difficult to attain, then it must be higher quality.</li>
+</ul>
+<hr />
+</div>
+<div id="some-now-vs-more-later" class="section level3">
+<h3>#6: Some Now vs More Later</h3>
+<p>“Give me six hours to chop down a tree and I will spend the first
+four sharpening the axe.” - attributed to Abraham Lincoln</p>
+<p>Upside to some now: get some utility right away in current state</p>
+<p>Upside to more later: get more utility later</p>
+<p><strong>Major Example</strong></p>
+<ul>
+<li>In sports, a common choice is made in which an individual player can
+either derive some value (e.g., pleasure, status, money) from
+<em>playing</em> a game now with one’s current skills, or one can
+<em>practice</em> fundamentals now, become better at the sport, and
+derive probabilistically more pleasure from playing later.</li>
+</ul>
+<p><strong>Ancillary Examples</strong></p>
+<ul>
+<li>In developmental economics, there is an inverse correlation among
+children between hours of work and reading / math skills <a
+href="https://www.tandfonline.com/doi/abs/10.1080/00220389908422594"><span
+class="citation">(Akabayashi et al., 1999)</span></a>. Children and
+their parents derive <em>some</em> utility now from having the children
+work but might derive <em>more</em> utility later if they invested more
+in education.</li>
+<li>In medicine, the health care team must often choose between making a
+diagnosis <em>early</em> before the appropriate lab tests have returned,
+in order to start treatment sooner, and making a diagnosis
+<em>later</em> after the lab results are back, which allows for a
+treatment with a higher specificity and thus higher average
+utility.</li>
+</ul>
+<center>
+<div class="figure">
+<img
+src="Old/output/page/2012/images/screen-shot-2013-03-26-at-4-24-12-pm.png#center"
+style="width:50.0%" alt="" />
+<p class="caption"><a
+href="https://commons.wikimedia.org/wiki/File:Hyperbolic_vs._exponential_discount_factors.svg">Many
+elicited and stated human and other animal’s preferences follow the
+time-inconsistent hyperbolic pattern</a></p>
+</div>
+</center>
+<p><strong>General Properties</strong></p>
+<ul>
+<li>Given somewhat contentious assumptions, humans and other animals
+often act irrationally with respect to this trade-off, tending to
+discount future rewards using a <a
+href="http://en.wikipedia.org/wiki/Hyperbolic_discounting">hyperbolic
+function</a> rather than the mathematically consistent exponential
+function.</li>
+</ul>
+<hr />
+</div>
+<div id="flexibility-vs-commitment" class="section level3">
+<h3>#7: Flexibility vs Commitment</h3>
+<p>“Commitment is healthiest when it’s not without doubt, but in spite
+of doubt.” - Rollo May</p>
+<p>Upside to flexibility: ability to switch more easily as knowledge or
+goals change</p>
+<p>Upside to commitment: use resources on optimizing for current
+goal</p>
+<p><strong>Major Example</strong></p>
+<ul>
+<li>In neuroscience, the ability of animals to flexibly alter the
+structure of our synaptic networks affords us a powerful ability to
+adapt to the reward structure of our environment. But the cost is that
+there is a large amount of noise generated from <em>non-adaptive</em>
+changes in synaptic structure. One role of sleep may be to help maintain
+synaptic homeostasis in the face of this noise while retaining the
+“important” memory traces <a
+href="http://www.ncbi.nlm.nih.gov/pubmed/16376591"><span
+class="citation">(Tononi et al., 2006)</span></a>.</li>
+</ul>
+<p><strong>Ancillary Examples</strong></p>
+<ul>
+<li>In biology, a more <a
+href="http://en.wikipedia.org/wiki/Evolvability">evolvable</a> organism,
+e.g. one with a lower probability of repairing mismatched DNA base pairs
+during replication, will be more able to flexibly generate genetic
+diversity and thus switch its phenotype faster over generations via
+selection processes. On the other hand, this lower probability of
+repairing mismatched DNA will also mean that each generation that
+remains in the current environment will be on average less “optimized”
+for its current environment.</li>
+<li>In literature, a common choice is posed that an individual must
+either accept defeat in some capacity or sacrifice his or her values in
+order to continue. If you are more willing to sacrifice your ideals, you
+gain strategically, but the knowledge of this lack of commitment might
+make you less rigorous about working hard, insofar as it makes you more
+aware that you are not truly working for something larger than yourself.
+Plus, you won’t be achieving your original goals as directly.</li>
+<li><a
+href="https://en.wikipedia.org/wiki/Wikipedia:Chesterton%27s_fence">Chesterton’s
+fence</a> is a thought experiment that asks: if there is a fence in the
+middle of a field, and you don’t know what problem it is solving, should
+you remove it? By generally requiring one to find out
+<em>why</em> fences are in place before removing them, you increase the
+costs to flexibility, and thus shift the tendency of one’s actions
+towards commitment, which has both upsides and downsides.</li>
+</ul>
+<center>
+<div class="figure">
+<img
+src="Old/output/page/2012/images/screen-shot-2013-03-28-at-3-08-59-pm.png#center"
+style="width:50.0%" alt="" />
+<p class="caption"><a
+href="http://www.ncbi.nlm.nih.gov/pubmed/16376591">The sleep homeostasis
+hypothesis by Tononi and Cerelli</a></p>
+</div>
+</center>
+<hr />
+</div>
+<div id="sensitivity-vs-specificity" class="section level3">
+<h3>#8: Sensitivity vs Specificity</h3>
+<p>“A: My blood test predicts cancer people with cancer 100% of the
+time! B: Right, but how often does it predict cancer in people without
+cancer?”</p>
+<p>Upside to sensitivity: lower false negative detection rate</p>
+<p>Upside to specificity: lower false positive detection rate</p>
+<p><strong>Major Example</strong></p>
+<ul>
+<li>A lifeguard can choose to pay less attention to each individual
+momentary dip under water, and thus lower his stress from false alarms
+(false positives). But they inevitably do so at the risk of increasing
+the risk of an oversight (false negatives) – i.e., not noticing when
+someone is underwater for too long. When they pay more attention, they
+are employing a more sensitive strategy.</li>
+</ul>
+<p><strong>Ancillary Examples</strong></p>
+<ul>
+<li>In <a
+href="http://en.wikipedia.org/wiki/Mechanoreceptor">neuroscience</a>,
+different types of mechanoreceptors have different sizes of their
+receptive fields – the typically oval areas of skin along which a
+mechanical stimulus (e.g., touch) leads to a change in that neurons
+action potential firing rates. In particular, Pacinian corpuscles have
+fairly large receptive fields, making them more sensitive (if you
+consider the goal of a mechanoreceptor to sense touch anywhere on the
+body), whereas Meissner’s corpuscles have fairly small receptive fields,
+making them more specific (if you consider the goal of a mechanoreceptor
+to detect movement only in a very small portion of the body).</li>
+<li>In <a
+href="http://en.wikipedia.org/wiki/Receiver_operating_characteristic">statistics</a>,
+a receiver operating characteristic curve allows one to show how the
+rates of false positives and false negatives change as you vary the
+threshold at which a binary classifier calls examples as either negative
+or positive.</li>
+</ul>
+<center>
+<div class="figure">
+<img
+src="Old/output/page/2012/images/screen-shot-2013-03-26-at-6-19-52-pm.png#center"
+style="width:50.0%" alt="" />
+<p class="caption"><a
+href="http://www.amazon.com/Principles-Neural-Science-Eric-Kandel/dp/0838577016">Meissner’s
+mechanoreceptors have small receptive fields and thus transmit more
+specific information, whereas Pacinian corpuscles have larger receptive
+fields and thus transmit less specific information; modified from
+Kandel’s textbook</a></p>
+</div>
+</center>
+<p><strong>General Properties</strong></p>
+<ul>
+<li>This trade-off is so well ingrained in statistics, as the
+poorly-named “type 1” and “type 2” errors, that it is often applied in
+circumstances when it shouldn’t be. For example, people often misuse it
+<a
+href="http://andrewgelman.com/2015/12/14/bayesian-decision-analysis-for-the-drug-approval-process/">in
+an attempt to call a drug “effective” or not</a> and doing a ROC curve
+analysis on related measures, rather than estimating the
+<em>continuous</em> effect size of a drug.</li>
+</ul>
+<hr />
+</div>
+<div id="protection-vs-freedom" class="section level3">
+<h3>#9: Protection vs Freedom</h3>
+<p>“The 2008 FISA amendments sought a compromise between two essential
+goals: preserving American liberty and robustly defending Americans’
+lives and property.” - Washington Post Editorial Board</p>
+<p>Upside to protection: lower average probability of harm from
+malevolent choices</p>
+<p>Upside to freedom: more choices</p>
+<p><strong>Major Example</strong> </p>
+<ul>
+<li>When herds of prey animals are large enough, they stand a chance to
+fight off a given predator. Thus they tend to aggregate together,
+lowering their freedom but increasing the probability of their survival
+<a href="http://www.ncbi.nlm.nih.gov/pubmed/12814600"><span
+class="citation">(Khan et al., 2003)</span></a>.</li>
+</ul>
+<p><strong>Ancillary Examples</strong> </p>
+<ul>
+<li>In capital-based economic systems, <em>work</em> is one way to trade
+freedom <em>now</em> for protection from various uncontrollable forces
+in the future.</li>
+<li>In politics, economic interventions that increase freedoms, such as
+organ donation markets, are typically argued against on the basis of
+<em>protecting</em> vulnerable individuals from
+<em>exploitation</em>.</li>
+</ul>
+<center>
+<div class="figure">
+<img
+src="Old/output/page/2012/images/screen-shot-2013-03-26-at-6-44-22-pm.png#center"
+style="width:60.0%" alt="" />
+<p class="caption"><a
+href="http://www.flickr.com/photos/eebrierley/4115870556">A castle keeps
+others out, but it also keeps you in</a></p>
+</div>
+</center>
+<p><strong>Reversal</strong>: This is probably the most abused
+trade-off. In general, just because there <em>could</em> be a trade-off
+between protection and freedom in a particular context does not mean
+that people should just accept that there <em>is</em> one. So do be wary
+of people who claim that freedom must be sacrificed for security without
+evidence.</p>
+<p>“The whole aim of practical politics is to keep the populace alarmed
+(and hence clamorous to be led to safety) by an endless series of
+hobgoblins, most of them imaginary.” - H.L. Mencken</p>
+<hr />
+</div>
+<div id="loyalty-vs-universality" class="section level3">
+<h3>#10: Loyalty vs Universality</h3>
+<p>“Duty, Honor, Country. Those three hallowed words reverently dictate
+what you ought to be, what you can be, what you will be.” - Douglas
+MacArthur</p>
+<p>Upside to loyalty: relatively more benefits accrue to your closer,
+fewer associates</p>
+<p>Upside to universality: benefits accrue further, both in geographical
+distance and time, and to more total sentient beings</p>
+<p><strong>Major Example</strong> </p>
+<ul>
+<li>In <a
+href="http://plato.stanford.edu/entries/altruism-biological/">evolutionary
+psychology</a>, the theory of kin selection explains how selfish genes
+can select for animals that help others, if those others are similar
+enough genetically. If the psychological patterns leading to kin
+selection are generalized to altruistic tendencies towards others in
+general, animals forged by natural selection can shift their mindset
+from loyalty to universality.</li>
+</ul>
+<p><strong>Ancillary Examples</strong> </p>
+<ul>
+<li>In <a
+href="http://en.wikipedia.org/wiki/A_Theory_of_Justice">ethics</a>, one
+theory posits that you should consider social justice principles from
+behind a “veil of ignorance” that obscures your own particular
+situation. This line of thinking is designed to shift people along the
+spectrum towards universalism.</li>
+<li>In psychology, the amount of money people are willing to pass up in
+order to give $75 to someone else decreases as the perceived social
+distance increases between them. So, humans tend to only be loyal
+towards a fairly limited number of people [<span class="citation">(Jones
+et al., 2006)</span>]((<a
+href="http://www.ncbi.nlm.nih.gov/pubmed/16623683"
+class="uri">http://www.ncbi.nlm.nih.gov/pubmed/16623683</a>).</li>
+</ul>
+<center>
+<div class="figure">
+<img
+src="Old/output/page/2012/images/screen-shot-2013-01-12-at-7-03-17-pm.png#center"
+style="width:45.0%" alt="" />
+<p class="caption"><a
+href="http://www.ncbi.nlm.nih.gov/pubmed/16623683">Social
+discounting</a></p>
+</div>
+</center>
+<p><strong>General Properties</strong></p>
+<ul>
+<li>The idea that the number and types of creatures considered by the
+ruling classes of society to be “morally relevant” has been increasing
+over time is often called <a
+href="http://en.wikipedia.org/wiki/Peter_Singer#Meta-ethics_and_foundational_issues">The
+Expanding Circle</a>. One explanation of this trend is that morality is
+heavily a function of our available technology.</li>
+</ul>
+<hr />
+</div>
+<div id="saving-vs-savoring" class="section level3">
+<h3>#11: Saving vs Savoring</h3>
+<p>“If the world were merely seductive, that would be easy. If it were
+merely challenging, that would be no problem. But I arise in the morning
+torn between a desire to improve (or save) the world and a desire to
+enjoy (or savor) the world. This makes it hard to plan the day.” - <a
+href="http://en.wikiquote.org/wiki/E._B._White">E.B. White</a></p>
+<p>Upside to saving: improve the world (i.e. better shift your
+environment to towards your values)</p>
+<p>Upside to savoring: enjoy yourself</p>
+<p><strong>Major Example</strong></p>
+<ul>
+<li>Many Buddhist traditions emphasize letting go from worldly
+accomplishments as the path to enlightenment and happiness. But this
+seems broadly at odds with working to improve the world.</li>
+</ul>
+<p><strong>Ancillary Examples</strong></p>
+<ul>
+<li>Deciding when to retire is often a matter of choosing whether your
+marginal contribution through your primary employment over the next few
+years is more valuable than your ability to savor time spent in other
+ways.</li>
+<li>In <a
+href="http://healthland.time.com/2011/03/04/why-having-kids-is-foolish/">certain
+societies</a>, people who do not have children report higher average
+moment-to-moment well-being than those who do not. However, it is often
+argued that by having children, parents are contributing more to the
+next generation.</li>
+</ul>
+<center>
+<div class="figure">
+<img
+src="Old/output/page/2012/images/screen-shot-2013-03-28-at-8-04-16-pm.png#center"
+style="width:40.0%" alt="" />
+<p class="caption"><a
+href="http://www1.eur.nl/fsw/happiness/hap_cor/top_sub.php?code=R3">In
+men, retiring at ages 60-62 is associated with an increase in
+self-reported happiness</a></p>
+</div>
+</center>
+<p><strong>General Properties</strong></p>
+<ul>
+<li>The concept of <a
+href="http://en.wikipedia.org/wiki/Flow_(psychology)">flow</a> and the
+idea that <a
+href="http://en.wikipedia.org/wiki/Man&#39;s_Search_for_Meaning">having
+a purpose in one’s life leads to increased satisfaction</a> both run
+contra to the idea of this as a trade-off. But, these are mostly
+interesting insofar as they are exceptions to the general, intuitive
+rule that humans make day-to-day trade-offs between enjoying themselves
+and getting things done.</li>
+<li>This trade-off can be “constructed” by considering the interaction
+of Some Now vs More Later and Loyalty vs Universality, where “savoring”
+is loyalty to oneself in the short run and “saving” is universality over
+the long run. However, this is a common enough interaction that it seems
+canon-worthy. </li>
+</ul>
+<hr />
+<p>Particular thanks to Ben Casnocha, Bingo McKenzie, Brian Waterman,
+Colin Marshall, and Kevin Burke for substantive comments on versions of
+this.</p>
+<hr />
+</div>
+<div id="references" class="section level2 unnumbered">
+<h2 class="unnumbered">References</h2>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-akabayashiTradeChildLabour1999" class="csl-entry">
+Akabayashi, H. and Psacharopoulos, G., The Trade‐off Between Child
+Labour and Human Capital Formation: A Tanzanian Case Study, <em>The
+Journal of Development Studies</em>, vol. <strong>35</strong>, no. 5,
+pp. 120–40, accessed January 8, 2023, from <a
+href="https://doi.org/10.1080/00220389908422594">https://doi.org/10.1080/00220389908422594</a>,
+June 1, 1999. DOI: <a
+href="https://doi.org/10.1080/00220389908422594">10.1080/00220389908422594</a>
+</div>
+<div id="ref-jonesSocialDiscounting2006" class="csl-entry">
+Jones, B. and Rachlin, H., Social discounting, <em>Psychological
+Science</em>, vol. <strong>17</strong>, no. 4, pp. 283–86, April 2006.
+DOI: <a
+href="https://doi.org/10.1111/j.1467-9280.2006.01699.x">10.1111/j.1467-9280.2006.01699.x</a>
+</div>
+<div id="ref-khanStudyPreypredatorRelations2003" class="csl-entry">
+Khan, Q. J. A. and Ghaleb, A. F., A study of prey-predator relations for
+mammals, <em>Journal of Theoretical Biology</em>, vol.
+<strong>223</strong>, no. 2, pp. 171–78, July 21, 2003. DOI: <a
+href="https://doi.org/10.1016/s0022-5193(03)00084-5">10.1016/s0022-5193(03)00084-5</a>
+</div>
+<div id="ref-marchExplorationExploitationOrganizational1991"
+class="csl-entry">
+March, J. G., Exploration and Exploitation in Organizational Learning,
+<em>Organization Science</em>, vol. <strong>2</strong>, no. 1, pp.
+71–87, accessed January 4, 2023, from <a
+href="https://www.jstor.org/stable/2634940">https://www.jstor.org/stable/2634940</a>,
+1991.
+</div>
+<div id="ref-millerProteanPrimatesEvolution1997" class="csl-entry">
+Miller, G. F., Protean Primates: The Evolution of Adaptive
+Unpredictability in Competition and Courtship, <em>ELSE Working
+Papers</em>, accessed January 3, 2023, from <a
+href="https://ideas.repec.org//p/els/esrcls/046.html">https://ideas.repec.org//p/els/esrcls/046.html</a>,
+1997.
+</div>
+<div id="ref-salterEconomicBenefitsPublicly2001" class="csl-entry">
+Salter, A. J. and Martin, B. R., The Economic Benefits of Publicly
+Funded Basic Research: A Critical Review, <em>Research Policy</em>, vol.
+<strong>30</strong>, no. 3, pp. 509–32, accessed January 8, 2023, from
+<a
+href="https://ideas.repec.org//a/eee/respol/v30y2001i3p509-532.html">https://ideas.repec.org//a/eee/respol/v30y2001i3p509-532.html</a>,
+2001.
+</div>
+<div id="ref-shackelfordUniversalDimensionsHuman2005" class="csl-entry">
+Shackelford, T. K., Schmitt, D. P. and Buss, D. M., Universal Dimensions
+of Human Mate Preferences, <em>Personality and Individual
+Differences</em>, vol. <strong>39</strong>, pp. 447–58, 2005. DOI: <a
+href="https://doi.org/10.1016/j.paid.2005.01.023">10.1016/j.paid.2005.01.023</a>
+</div>
+<div id="ref-tononiSleepFunctionSynaptic2006" class="csl-entry">
+Tononi, G. and Cirelli, C., Sleep function and synaptic homeostasis,
+<em>Sleep Medicine Reviews</em>, vol. <strong>10</strong>, no. 1, pp.
+49–62, February 2006. DOI: <a
+href="https://doi.org/10.1016/j.smrv.2005.05.002">10.1016/j.smrv.2005.05.002</a>
+</div>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

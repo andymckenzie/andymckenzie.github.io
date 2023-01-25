@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="By: Andrew McKenzie" />
+
+
+<title>Neuron typing</title>
+
+<script src="site_libs/header-attrs-2.19/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/yeti.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+
+
+
+<style type="text/css">
+/* for pandoc --citeproc since 2.11 */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"></a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://andrewtmckenzie.com">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+</li>
+<li>
+  <a href="https://scholar.google.com/citations?user=H1Yr8oMAAAAJ&amp;hl=en">
+    <span class="fa fa-graduation-cap"></span>
+     
+    Scholar
+  </a>
+</li>
+<li>
+  <a href="https://neurobiology.substack.com/">
+    <span class="fa fa-book"></span>
+     
+    Blog
+  </a>
+</li>
+<li>
+  <a href="https://github.com/andymckenzie">
+    <span class="fa fa-github"></span>
+     
+    Github
+  </a>
+</li>
+<li>
+  <a href="https://www.linkedin.com/in/andymckenzie/">
+    <span class="fa fa-linkedin"></span>
+     
+    LinkedIn
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Neuron typing</h1>
+<h4 class="author">By: Andrew McKenzie</h4>
+<h4 class="date">First Published: 2012-10-12; Last Updated:
+2023-01-08</h4>
+
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#motivating-questions"
+id="toc-motivating-questions">Motivating Questions</a></li>
+<li><a href="#classifying-human-senses"
+id="toc-classifying-human-senses">Classifying Human Senses</a></li>
+<li><a href="#classifying-neurons"
+id="toc-classifying-neurons">Classifying Neurons</a>
+<ul>
+<li><a href="#morphology" id="toc-morphology">Morphology</a></li>
+<li><a href="#connectivity" id="toc-connectivity">Connectivity</a></li>
+<li><a href="#location" id="toc-location">Location</a></li>
+<li><a href="#stereotyped-ion-channel-and-pump-distributions"
+id="toc-stereotyped-ion-channel-and-pump-distributions">Stereotyped Ion
+Channel and Pump Distributions</a></li>
+<li><a href="#neurotransmitter-type"
+id="toc-neurotransmitter-type">Neurotransmitter Type</a></li>
+<li><a href="#gene-expression-and-chromatin-state"
+id="toc-gene-expression-and-chromatin-state">Gene Expression and
+Chromatin State</a></li>
+</ul></li>
+<li><a href="#cells-of-the-same-type-should-have-less-variability"
+id="toc-cells-of-the-same-type-should-have-less-variability">Cells Of
+The Same Type Should Have Less Variability</a></li>
+<li><a href="#reverse-inference-from-functional-properties-to-types"
+id="toc-reverse-inference-from-functional-properties-to-types">Reverse
+Inference: From Functional Properties To Types</a></li>
+<li><a href="#how-many-neuron-types-are-there"
+id="toc-how-many-neuron-types-are-there">How Many Neuron Types Are
+There?</a></li>
+<li><a href="#why-exactly-do-we-care"
+id="toc-why-exactly-do-we-care">Why Exactly Do We Care?</a></li>
+<li><a href="#annotated-further-reading-list"
+id="toc-annotated-further-reading-list">Annotated Further Reading
+List</a></li>
+<li><a href="#references" id="toc-references">References</a></li>
+</ul>
+</div>
+
+<head>
+<meta name="citation_title" content="Neuron typing">
+<meta name="og:title" content="Neuron typing">
+<meta name="citation_author" content="Andrew T McKenzie">
+<meta name="og:site" content="andrewtmckenzie.com">
+<meta name="og:type" content="article">
+<meta name="citation_publication_date" content="2012-10-12">
+<meta name="citation_fulltext_html_url" content="https://andrewtmckenzie.com/neuron-typing">
+<meta name="og:url" content="https://andrewtmckenzie.com/neuron-typing">
+<meta name="citation_fulltext_world_readable" content="">
+</head>
+<style type="text/css">
+  body{
+  font-size: 14.5pt;
+  overflow-y:scroll;
+}
+h1.title {
+  font-size: 25pt;
+}
+  h4{
+  font-size: 17pt;
+}
+  td{
+    font-size: 14.5pt;
+    padding:0px;
+    cellpadding="0";
+    cellspacing="0"
+  }
+  th {
+    font-size: 14.5pt;
+    font-weight: bold;
+  }
+    .navbar {
+  font-size: 13pt;
+  }
+</style>
+<div id="motivating-questions" class="section level2">
+<h2>Motivating Questions</h2>
+<p>How many types of neurons are there in the human brain? What about in
+particular brain regions? To what extent are these useful questions?</p>
+</div>
+<div id="classifying-human-senses" class="section level2">
+<h2>Classifying Human Senses</h2>
+<p>To motivate the molecular details with a macroscale example, consider
+the number of <a href="http://en.wikipedia.org/wiki/Sense">senses</a> in
+the human body. In elementary school you may have been told that there
+were five: smell, sight, taste, hearing, and touch. This is wrong; even
+generously granting temperature sensing, pain, and proprioception to
+touch, <em>and</em> ignoring the less consciously tangible senses like
+<a href="http://en.wikipedia.org/wiki/Time_perception">time</a> or the
+more speculative <a
+href="http://en.wikipedia.org/wiki/Magnetoception">magnetoception</a>,
+there is still balance, which is clearly a non-subsumable class on the
+same level as any of the canonical five.</p>
+<p>So how many senses do humans typically have? 6? 11? There are no easy
+answers and your answer must depend on how detailed you want your
+classification to be. In situations such as this, a common strategy is
+to attempt to create a <em>hierarchical</em> classification system. This
+could mean, for example, that touch would be a superset of temperature
+sensing, pain, and proprioception, while balance would be a superset of
+linear and rotational change detection.</p>
+<p>At the most basic level of each sensory modality, you might imagine
+that there could be a single type of neuron that acts as its receptive
+transducer. For example, since rod cells primarily distinguish the
+brightness of a visual stimuli while and cone cells distinguish color,
+it makes sense to consider brightness and color to be separate sense.
+This system has utility. But even in these well understood systems there
+will be controversy. For example, inner hair cells in the cochlea of the
+ear are mechanosensors for the oscillating pressure waves. But there is
+probably more than one type of inner hair cell, and it is unclear
+whether they should represent different “senses” <a
+href="http://www.ncbi.nlm.nih.gov/pmc/articles/PMC2909616"><span
+class="citation">(Simmons et al., 2010)</span></a> <a
+href="http://www.ncbi.nlm.nih.gov/pubmed/23201032"><span
+class="citation">(Jahan et al., 2013)</span></a>.</p>
+<p>I hope this exercise convinces you that there are trade-offs to any
+classification system, especially as applied to a many-fold interacting
+network like a nervous system. So, when we think about neuron typing, we
+must think about what will be <em>good enough</em> quantitatively for
+our purposes, rather than hoping for qualitative differences
+everywhere.</p>
+</div>
+<div id="classifying-neurons" class="section level2">
+<h2>Classifying Neurons</h2>
+<p>Before you establish any classifier, you will want to be clear about
+your goals. One common goal in classification is to explain the variance
+in a system. For example, consider the variance in height among humans
+aged 0 to 15. One useful variable to explain their variance in height
+will be age. If we group individuals on the basis of whether they are
+aged 0 to 3, 3 to 6, and etc up to 15, then we can measure the average
+within-group variance and see how it compares to the total variance. If
+our grouping system helps us achieve our goal of explaining variance,
+then the average within-group variance should be smaller than the total
+variance.</p>
+<p>In neuron typing, the axes whose variance we are interested in
+explaining are difficult-to-quantify features, such as tonic action
+potential firing patterns, synaptic vesicle release probabilities
+following afferent stimulation, and susceptibility to various
+neuromodulators. Because some of the variance in these categories will
+arise from unpredictable <a
+href="http://en.wikipedia.org/wiki/Quantum_noise">quantum noise</a>, it
+seems really difficult if not impossible to find a classification system
+that will explain <em>all</em> of their variance. If, however, your goal
+is to identify cognitively relevant information processing steps and you
+are willing to leave some variance unexplained, then such a
+classification system should be possible. That’s because the standard
+set of cognitive operations of the brain is generally considered to make
+up a classical (i.e., non-quantum) system <a
+href="http://arxiv.org/abs/quant-ph/990700"><span
+class="citation">(Tegmark, 2000)</span></a>.</p>
+<p>What are the actual classes of variables we could use to explain
+functional variance? Here are some of the candidates:</p>
+<div id="morphology" class="section level3">
+<h3>Morphology</h3>
+<p>That is, classifying neurons based on the way that their dendrites
+and axons branch, or the shape of their cell body. For example, Luczak
+considers morphological models of three very widely studied neuron
+types, reproduced below <a
+href="http://www.ncbi.nlm.nih.gov/pubmed/21079752"><span
+class="citation">(Luczak, 2010)</span></a>. This is a useful way to
+describe neurons at a high level but may not be very extensible down to
+lower-level properties. Of course that remains to be seen.</p>
+<center>
+<div class="figure">
+<img src="Old/output/page/2012/images/luczak-neuron-types.png" alt="" />
+<p class="caption">Neuron types from <a
+href="http://www.ncbi.nlm.nih.gov/pubmed/21079752">Luczak 2010</a></p>
+</div>
+</center>
+</div>
+<div id="connectivity" class="section level3">
+<h3>Connectivity</h3>
+<p>How neurons connect to one another is, naturally, a key part of any
+circuit model <a
+href="http://www.ncbi.nlm.nih.gov/pmc/articles/PMC2570080/"><span
+class="citation">(Yuste, 2008)</span></a>. It has been proposed as a way
+to classify neurons themselves, so I list it here for completeness.</p>
+<p>And indeed, how neurons connect to one another is likely to be
+correlated with their functional properties. This is especially true in
+sensory systems that have a stereotyped pattern of cell type-cell type
+connections that is genetically programmed to develop in a particular
+environment. This is certainly the case in the retina; as an
+illustration, see Kolb’s <a
+href="http://webvision.med.utah.edu/book/part-i-foundations/simple-anatomy-of-the-retina/">nice
+diagram</a>, reproduced below.</p>
+<center>
+<div class="figure">
+<img
+src="Old/output/page/2012/images/screen-shot-2012-12-29-at-4-39-29-pm.png"
+style="width:45.0%" alt="" />
+<p class="caption">Retina Model by <a
+href="http://webvision.med.utah.edu/book/part-i-foundations/simple-anatomy-of-the-retina/">Helga
+Kolb</a></p>
+</div>
+</center>
+<p>However, it is unclear whether connectivity patterns will add much
+explanatory power when considering cell types in regions further
+upstream from the initial sensory pathways, such as the cortex.</p>
+</div>
+<div id="location" class="section level3">
+<h3>Location</h3>
+<p>There is a common, pragmatic trend to name cells on the basis of the
+brain region in which they are found. Indeed, “birds of a feather flock
+together”; location is probably a pretty good proxy for function.</p>
+<p>In fact, in Swanson and Bota’s classification system, reproduced
+below, cell body-containing (i.e., grey matter) regions are
+<em>defined</em> on the basis of the neuron types present there <a
+href="http://www.ncbi.nlm.nih.gov/pubmed/21078980"><span
+class="citation">(Swanson et al., 2010)</span></a>. Of course, this can
+lead to circularity problems.</p>
+<center>
+<div class="figure">
+<img
+src="Old/output/page/2012/images/screen-shot-2012-12-29-at-4-27-52-pm.png"
+alt="" />
+<p class="caption"><a
+href="http://www.ncbi.nlm.nih.gov/pubmed/21078980">Swanson and Bota’s
+subsystems classification</a></p>
+</div>
+</center>
+</div>
+<div id="stereotyped-ion-channel-and-pump-distributions"
+class="section level3">
+<h3>Stereotyped Ion Channel and Pump Distributions</h3>
+<p>The types of ions channels that a certain neuron expresses out of the
+“zoo” of possibilities clearly has a huge impact on the functional
+properties of that neuron. So, this merits a mention as a possible
+candidate. However, it might not be general enough.</p>
+</div>
+<div id="neurotransmitter-type" class="section level3">
+<h3>Neurotransmitter Type</h3>
+<p>This is a common way in which neurons are named and typed. For
+example, think of dopamine neurons <a
+href="http://www.ncbi.nlm.nih.gov/pubmed/1346804"><span
+class="citation">(Johnson et al., 1992)</span></a> or long-range
+GABAergic neurons <a
+href="http://www.ncbi.nlm.nih.gov/pubmed/22442486?dopt=Abstract"><span
+class="citation">(Melzer et al., 2012)</span></a>. It is for good
+reason, as neurons with different neurotransmitter types tend to operate
+quite differently in most circuit models. However, given that around 85%
+of the neurons in the cortex employ glutamate as their neurotransmitter,
+this type of classification might not be very specific <a
+href="http://www.ncbi.nlm.nih.gov/pubmed/19571222"><span
+class="citation">(Magistretti, 2009)</span></a>.</p>
+</div>
+<div id="gene-expression-and-chromatin-state" class="section level3">
+<h3>Gene Expression and Chromatin State</h3>
+<p>Which set of variables specifies the cytoskeletal components
+(morphology), adhesion molecules (connectivity), guidance molecules
+(location), transmembrane receptor subunits (ion channel distribution),
+synaptic vesicle recycling components (neurotransmitter type), and all
+other sorts of relevant molecules? Obviously, it is the set of variables
+that control gene expression, including the concentration and location
+of nucleosome-associated and other scaffold proteins that specify the
+likelihood of a transcription factor complex binding to a particular
+region along a chromosome. The primacy of these variables to cell type
+also makes sense from a developmental perspective, because stem and
+progenitor cells differentiate into neurons or other cell types largely
+on the basis of transcription factors and chromatin modification
+proteins that alter gene expression in a stable, non-DNA
+sequence-related way. </p>
+<p>Gene expression and chromatin state is thus the obvious class of
+variables to type neurons and seems both promising and extensible. Since
+I first wrote this essay, this seems to be now the most precise way that
+neuron typing is performed, for example via single cell RNA sequencing
+data.</p>
+</div>
+</div>
+<div id="cells-of-the-same-type-should-have-less-variability"
+class="section level2">
+<h2>Cells Of The Same Type Should Have Less Variability</h2>
+<p>To ground this abstract discussion in a concrete example, consider <a
+href="http://en.wikipedia.org/wiki/Olfactory_bulb_mitral_cell">mitral
+cells</a>.</p>
+<p>These cells have a biophysical property called sag potential (also
+known as h-current), which is “activated by hyperpolarization beyond
+approximately -50 to -70 mV, does not inactivate, is carried by Na+ and
+K+ ions, and slowly depolarizes the cell toward its equilibrium
+potential -30 mV” <a
+href="http://www.ncbi.nlm.nih.gov/pubmed/9697847"><span
+class="citation">(Lüthi et al., 1998)</span></a>. The sag potential has
+an impact on the functional (i.e., input-output) properties of the
+neuron.</p>
+<center>
+<div class="figure">
+<img
+src="Old/output/page/2012/images/screen-shot-2012-12-29-at-4-56-26-pm.png"
+style="width:45.0%" alt="" />
+<p class="caption"><a
+href="https://en.wikipedia.org/wiki/Olfactory_epithelium">Olfactory cell
+to glomeruli to mitral cell pathway</a></p>
+</div>
+</center>
+<p>Each glomerulus receives input from olfactory cells expressing
+exactly one type of odorant receptor. Mitral cells, in turn, can be
+typed on the basis of the glomeruli that they receive input from.</p>
+<p><a href="http://www.ncbi.nlm.nih.gov/pubmed/22820253"><span
+class="citation">(Angelo et al., 2012)</span></a> found that mitral
+cells of the same connectivity type (i.e., those that connect to the
+same glomerulus) have less variance in their sag potential amplitudes
+than mitral cells of different connectivity types. This is precisely our
+definition of a useful typing system, and shows how neurons can be typed
+by their afferent connections.</p>
+</div>
+<div id="reverse-inference-from-functional-properties-to-types"
+class="section level2">
+<h2>Reverse Inference: From Functional Properties To Types</h2>
+<p>In some relatively less scalable scenarios, you may have access to
+functional data from each neuron and want to classify them into types.
+Although firing patterns can change with neuromodulation, development,
+or disease, this sort of reverse inference procedure can help define
+loose bounds on how successful neuron typing using non-functional
+features might be in capturing functional variance.</p>
+<p><a href="http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3338007"><span
+class="citation">(Brookings et al., 2012)</span></a> have a nice example
+of this They studied four neuron types from the well-studied crab
+stomatogastric ganglion: the pyloric dilator, lateral pyloric, gastric
+mill, and dorsal gastric. They measured six intrinsic properties of each
+neuron:</p>
+<ul>
+<li>spike frequency with 1nA injected current</li>
+<li>input resistance</li>
+<li>spike threshold voltage</li>
+<li>frequency–current slope</li>
+<li>minimum voltage with zero injected current, and</li>
+<li>spike height,</li>
+</ul>
+<p>as well as four more novel properties that depended upon perturbing
+the network environment of that neuron. They then projected these 10
+dimensions down to 2 that capture between-class variance the best, and
+did clustering to try to separate the classes. This was their
+result:</p>
+<center>
+<div class="figure">
+<img
+src="Old/output/page/2012/images/screen-shot-2013-01-06-at-11-48-51-pm.png"
+style="width:40.0%" alt="" />
+<p class="caption">Clustering of stomatogastric neurons from <a
+href="http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3338007">Brookings et
+al 2012</a></p>
+</div>
+</center>
+<p>As you can see, they had some success but did not achieve perfect
+classification even in their relatively simple system. Their data
+underscores the difficulty of neuron typing.</p>
+</div>
+<div id="how-many-neuron-types-are-there" class="section level2">
+<h2>How Many Neuron Types Are There?</h2>
+<p>Kandel et al’s <em>Principles</em> <a
+href="http://www.amazon.com/Principles-Neural-Science-Edition-Kandel/dp/0071390111/ref=dp_ob_title_bk">claims</a> that
+“there are about 100 distinct types of neurons” (5th ed, Chapter
+4, Kindle Location 3801). They do not explain their reasoning, but in
+the absence of an actual ontology, this nice, round number seems as good
+a guess as any. NeuroLex <a
+href="http://neurolex.org/wiki/Vertebrate_Neuron_overview">lists</a> 247
+vertebrate neurons. NeuroMorph <a
+href="http://neuromorpho.org/neuroMorpho/bycell.jsp#top">lists</a> 63
+neuron types with links to their morphology, in all types of
+organisms.</p>
+</div>
+<div id="why-exactly-do-we-care" class="section level2">
+<h2>Why Exactly Do We Care?</h2>
+<p>The ultimate goal of developing a solid neuron type ontology is that
+you wouldn’t need to measure the gene expression patterns or epigenome
+of <em>each</em> neuron in a circuit in order to be able to predict how
+the circuit generally works. Instead, you could just measure key proxy
+variables to call each neuron’s type and then measure the key
+compartment parameters along which that type tends to vary (e.g., number
+and location of important receptors, position of vesicles and relative
+number, important signaling pathway statuses). This has obvious utility
+in rational drug and treatment design for cognition-related
+disorders.</p>
+</div>
+<div id="annotated-further-reading-list" class="section level2">
+<h2>Annotated Further Reading List</h2>
+<p><a
+href="http://www.nature.com/neuro/journal/v15/n3/full/nn.3032.html"><span
+class="citation">(Siegert et al., 2012)</span></a>: In this paper, the
+authors use FACS on retina cells from a variety of mouse lines
+expressing XFP on a variety of morphologically distinct cell types
+(ST1). They use transcriptional patterns to define supersets of cell
+classes in the retina. They define “specificity ratios” of transcription
+factors for particular cell types. They don’t assay for functional
+activity, but show that the number of (morphologically distinct) cell
+types within a class is inversely correlated with the ability to
+distinguish particular transcription factors specific to that cell class
+(F2C). Indeed, this “negative correlation suggests that the less diverse
+a cell population, the higher the number of genes expressed only in that
+population.” They also show that hierarchical clustering based on
+transcriptomes can divide cells into their independently specified
+“biologically relevant” classes (F4C). There is also some interesting
+stuff on particular diseases relevant to transcription factor in
+particular cell types.</p>
+<p><a href="http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3479474/"><span
+class="citation">(Hill et al., 2012)</span></a>: In this article on
+statistical connectivity between neurons, the authors provide a nice
+example of how one could segregate cell types by morphology. They build
+a model of a circuit in the neocortex based on realistic parameters, and
+visualize this by representing different morphological types with
+different colors.</p>
+</div>
+<div id="references" class="section level2 unnumbered">
+<h2 class="unnumbered">References</h2>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-angeloBiophysicalSignatureNetwork2012" class="csl-entry">
+Angelo, K., Rancz, E. A., Pimentel, D., Hundahl, C., Hannibal, J.,
+Fleischmann, A., Pichler, B. and Margrie, T. W., A biophysical signature
+of network affiliation and sensory processing in mitral cells,
+<em>Nature</em>, vol. <strong>488</strong>, no. 7411, pp. 375–78, August
+16, 2012. DOI: <a
+href="https://doi.org/10.1038/nature11291">10.1038/nature11291</a>
+</div>
+<div id="ref-brookingsStatisticsNeuronalIdentification2012"
+class="csl-entry">
+Brookings, T., Grashow, R. and Marder, E., Statistics of Neuronal
+Identification with Open- and Closed-Loop Measures of Intrinsic
+Excitability, <em>Frontiers in Neural Circuits</em>, vol.
+<strong>6</strong>, p. 19, accessed January 8, 2023, from <a
+href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3338007/">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3338007/</a>,
+April 27, 2012. DOI: <a
+href="https://doi.org/10.3389/fncir.2012.00019">10.3389/fncir.2012.00019</a>
+</div>
+<div id="ref-hillStatisticalConnectivityProvides2012" class="csl-entry">
+Hill, S. L., Wang, Y., Riachi, I., Schürmann, F. and Markram, H.,
+Statistical Connectivity Provides a Sufficient Foundation for Specific
+Functional Connectivity in Neocortical Neural Microcircuits,
+<em>Proceedings of the National Academy of Sciences of the United States
+of America</em>, vol. <strong>109</strong>, no. 42, pp. E2885–94,
+accessed January 8, 2023, from <a
+href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3479474/">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3479474/</a>,
+October 16, 2012. DOI: <a
+href="https://doi.org/10.1073/pnas.1202128109">10.1073/pnas.1202128109</a>
+</div>
+<div id="ref-jahanGeneralizedHairCells2013" class="csl-entry">
+Jahan, I., Pan, N., Kersigo, J. and Fritzsch, B., Beyond generalized
+hair cells: molecular cues for hair cell types, <em>Hearing
+Research</em>, vol. <strong>297</strong>, pp. 30–41, March 2013. DOI: <a
+href="https://doi.org/10.1016/j.heares.2012.11.008">10.1016/j.heares.2012.11.008</a>
+</div>
+<div id="ref-johnsonOpioidsExciteDopamine1992" class="csl-entry">
+Johnson, S. W. and North, R. A., Opioids excite dopamine neurons by
+hyperpolarization of local interneurons, <em>The Journal of
+Neuroscience: The Official Journal of the Society for Neuroscience</em>,
+vol. <strong>12</strong>, no. 2, pp. 483–88, February 1992. DOI: <a
+href="https://doi.org/10.1523/JNEUROSCI.12-02-00483.1992">10.1523/JNEUROSCI.12-02-00483.1992</a>
+</div>
+<div id="ref-luczakMeasuringNeuronalBranching2010" class="csl-entry">
+Luczak, A., Measuring Neuronal Branching Patterns Using Model-Based
+Approach, <em>Frontiers in Computational Neuroscience</em>, vol.
+<strong>4</strong>, p. 135, accessed December 30, 2021, from <a
+href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2978053/">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2978053/</a>,
+October 20, 2010. DOI: <a
+href="https://doi.org/10.3389/fncom.2010.00135">10.3389/fncom.2010.00135</a>
+</div>
+<div id="ref-luthiHcurrentPropertiesNeuronal1998" class="csl-entry">
+Lüthi, A. and McCormick, D. A., H-current: properties of a neuronal and
+network pacemaker, <em>Neuron</em>, vol. <strong>21</strong>, no. 1, pp.
+9–12, July 1998. DOI: <a
+href="https://doi.org/10.1016/s0896-6273(00)80509-7">10.1016/s0896-6273(00)80509-7</a>
+</div>
+<div id="ref-magistrettiRoleGlutamateNeuronglia2009" class="csl-entry">
+Magistretti, P. J., Role of glutamate in neuron-glia metabolic coupling,
+<em>The American Journal of Clinical Nutrition</em>, vol.
+<strong>90</strong>, no. 3, pp. 875S–880S, September 2009. DOI: <a
+href="https://doi.org/10.3945/ajcn.2009.27462CC">10.3945/ajcn.2009.27462CC</a>
+</div>
+<div id="ref-melzerLongrangeprojectingGABAergicNeurons2012"
+class="csl-entry">
+Melzer, S., Michael, M., Caputi, A., Eliava, M., Fuchs, E. C.,
+Whittington, M. A. and Monyer, H., Long-range-projecting GABAergic
+neurons modulate inhibition in hippocampus and entorhinal cortex,
+<em>Science (New York, N.Y.)</em>, vol. <strong>335</strong>, no. 6075,
+pp. 1506–10, March 23, 2012. DOI: <a
+href="https://doi.org/10.1126/science.1217139">10.1126/science.1217139</a>
+</div>
+<div id="ref-siegertTranscriptionalCodeDisease2012" class="csl-entry">
+Siegert, S., Cabuy, E., Scherf, B. G., Kohler, H., Panda, S., Le, Y.-Z.,
+Fehling, H. J., Gaidatzis, D., Stadler, M. B. and Roska, B.,
+Transcriptional Code and Disease Map for Adult Retinal Cell Types,
+<em>Nature Neuroscience</em>, vol. <strong>15</strong>, no. 3, pp.
+487–95, accessed January 8, 2023, from <a
+href="https://www.nature.com/articles/nn.3032">https://www.nature.com/articles/nn.3032</a>,
+March 2012. DOI: <a
+href="https://doi.org/10.1038/nn.3032">10.1038/nn.3032</a>
+</div>
+<div id="ref-simmonsOncomodulinIdentifiesDifferent2010"
+class="csl-entry">
+Simmons, D. D., Tong, B., Schrader, A. D. and Hawkes, A. J., Oncomodulin
+Identifies Different Hair Cell Types in the Mammalian Inner Ear, <em>The
+Journal of Comparative Neurology</em>, vol. <strong>518</strong>, no.
+18, pp. 3785–3802, accessed January 8, 2023, from <a
+href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2909616/">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2909616/</a>,
+September 15, 2010. DOI: <a
+href="https://doi.org/10.1002/cne.22424">10.1002/cne.22424</a>
+</div>
+<div id="ref-swansonFoundationalModelStructural2010" class="csl-entry">
+Swanson, L. W. and Bota, M., Foundational model of structural
+connectivity in the nervous system with a schema for wiring diagrams,
+connectome, and basic plan architecture, <em>Proceedings of the National
+Academy of Sciences of the United States of America</em>, vol.
+<strong>107</strong>, no. 48, pp. 20610–17, November 30, 2010. DOI: <a
+href="https://doi.org/10.1073/pnas.1015128107">10.1073/pnas.1015128107</a>
+</div>
+<div id="ref-tegmarkImportanceQuantumDecoherence2000" class="csl-entry">
+Tegmark, M., <a
+href="https://www.ncbi.nlm.nih.gov/pubmed/11088215">Importance of
+quantum decoherence in brain processes</a>, <em>Physical Review. E,
+Statistical Physics, Plasmas, Fluids, and Related Interdisciplinary
+Topics</em>, vol. <strong>61</strong>, no. 4 Pt B, pp. 4194–4206, April
+2000.
+</div>
+<div id="ref-yusteCircuitNeuroscienceRoad2008" class="csl-entry">
+Yuste, R., Circuit Neuroscience: The Road Ahead, <em>Frontiers in
+Neuroscience</em>, vol. <strong>2</strong>, no. 1, pp. 6–9, accessed
+January 8, 2023, from <a
+href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2570080/">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2570080/</a>,
+August 1, 2008. DOI: <a
+href="https://doi.org/10.3389/neuro.01.017.2008">10.3389/neuro.01.017.2008</a>
+</div>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
